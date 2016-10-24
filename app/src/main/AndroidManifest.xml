@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.rbzeta.postaq">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application
+        android:name="app.rbzeta.postaq.app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="app.rbzeta.postaq.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+        <activity
+            android:name="app.rbzeta.postaq.activity.LoginActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="app.rbzeta.postaq.activity.SignUpActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="app.rbzeta.postaq.activity.ForgotPasswordActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <receiver
+            android:name="app.rbzeta.postaq.bc.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="app.rbzeta.postaq.activity.VerifyCodeActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="app.rbzeta.postaq.activity.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="app.rbzeta.postaq.activity.UserProfileSettingsActivity"
+            android:theme="@style/MyMaterialTheme"
+            android:windowSoftInputMode="adjustResize"><meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="app.rbzeta.postaq.activity.HomeActivity" />
+            </activity>
+    </application>
+
+</manifest>

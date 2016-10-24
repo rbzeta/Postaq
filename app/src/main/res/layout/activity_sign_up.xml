@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDarker">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarSignUp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:layout_gravity="center_vertical|center_horizontal" />
+<ScrollView
+    android:id="@+id/activity_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/frameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/frame_white"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:focusableInTouchMode="true">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:hintEnabled="false"
+            >
+
+            <EditText
+                android:id="@+id/textEmailSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_gray"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:maxLength="@integer/max_email"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/hint__material_light"
+                android:textSize="@dimen/edit_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilPasswordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/textPasswordSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_gray"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:maxLength="@integer/max_password"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/hint__material_light"
+                android:textSize="@dimen/edit_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/textNameSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_gray"
+                android:hint="@string/hint_name"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:maxLength="@integer/max_name"
+                android:textColor="@color/hint__material_light"
+                android:textSize="@dimen/edit_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/textPhoneNumSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_gray"
+                android:hint="@string/hint_phone_number"
+                android:inputType="phone"
+                android:maxLength="@integer/max_phone_number"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/hint__material_light"
+                android:textSize="@dimen/edit_text_size" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/textEmpIdSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_gray"
+                android:hint="@string/hint_emp_id"
+                android:inputType="number"
+                android:maxLength="@integer/max_emp_id"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/hint__material_light"
+                android:textSize="@dimen/edit_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/textBranchIdSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_gray"
+                android:hint="@string/hint_branch_code"
+                android:inputType="number"
+                android:maxLength="@integer/max_branch_id"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/hint__material_light"
+                android:textSize="@dimen/edit_text_size" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/verivy_sign_up_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_transparent_bottom_radius"
+            android:text="@string/action_verify_sign_up"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDarker" />
+    </LinearLayout>
+</ScrollView>
+</FrameLayout>

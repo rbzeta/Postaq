@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="app.rbzeta.postaq.activity.UserProfileSettingsActivity">
+
+    <!--<android.support.v7.widget.RecyclerView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+    <me.henrytao.smoothappbarlayout.SmoothAppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+       android:theme="@style/MyMaterialTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarUserProfile"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/MyMaterialTheme.PopupOverlay" />
+
+            <me.henrytao.smoothappbarlayout.SmoothCollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:minHeight="?attr/actionBarSize"
+                app:sctl_avatar_id="@+id/toolbarAvatar"
+                app:sctl_collapsed_avatarSize="40dp"
+                app:sctl_collapsed_offsetX="?attr/actionBarSize"
+                app:sctl_collapsed_offsetY="0dp"
+                app:sctl_collapsed_subtitleTextSize="12dp"
+                app:sctl_collapsed_titleTextSize="14dp"
+                app:sctl_expanded_avatarSize="60dp"
+                app:sctl_expanded_offsetX="16dp"
+                app:sctl_expanded_offsetY="16dp"
+                app:sctl_expanded_subtitleTextSize="16dp"
+                app:sctl_expanded_titleTextSize="18dp"
+                app:sctl_subtitle_id="@+id/textToolbarSubtitleName"
+                app:sctl_title_id="@+id/textToolbarTitleName">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/toolbarAvatar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/img_user_profile_default"
+                    android:scaleType="centerCrop"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textToolbarTitleName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Title"/>
+
+                    <TextView
+                        android:id="@+id/textToolbarSubtitleName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Body1"/>
+                </LinearLayout>
+            </me.henrytao.smoothappbarlayout.SmoothCollapsingToolbarLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </me.henrytao.smoothappbarlayout.SmoothAppBarLayout>
+
+
+
+    <include layout="@layout/content_user_profile"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabUserProfilePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_menu_camera"
+        app:backgroundTint="@android:color/background_light"
+        app:rippleColor="@color/colorPrimary" />
+
+</android.support.design.widget.CoordinatorLayout>

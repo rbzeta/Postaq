@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="max_branch_id">4</integer>
+    <integer name="max_phone_number">15</integer>
+    <integer name="max_email">30</integer>
+    <integer name="max_password">20</integer>
+    <integer name="max_name">40</integer>
+    <integer name="max_emp_id">8</integer>
+</resources>
