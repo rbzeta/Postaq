@@ -13,4 +13,10 @@
     <dimen name="dividerHeight">1dp</dimen>
     <dimen name="text_top_bottom_margin">5dp</dimen>
     <dimen name="linear_margin">5dp</dimen>
+    <dimen name="post_card_margin">8dp</dimen>
+    <dimen name="post_card_radius">4dp</dimen>
+    <dimen name="post_avatar_width">40dp</dimen>
+    <dimen name="post_avatar_height">40dp</dimen>
+    <dimen name="post_avatar_margin">10dp</dimen>
+    <dimen name="post_image_height">120dp</dimen>
 </resources>

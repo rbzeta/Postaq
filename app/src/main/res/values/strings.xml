@@ -77,9 +77,9 @@
     <string name="dialog_title_input_name">Enter Your Name</string>
     <string name="dialog_title_input_name_hint">Your Name</string>
     <string name="text">Text</string>
-    <string name="dialog_title_input_phone_hint" >Phone Number</string>
-    <string name="dialog_title_input_empid_hint" >Employee ID</string>
-    <string name="dialog_title_input_branchid_hint" >Branch ID</string>
+    <string name="dialog_title_input_phone_hint">Phone Number</string>
+    <string name="dialog_title_input_empid_hint">Employee ID</string>
+    <string name="dialog_title_input_branchid_hint">Branch ID</string>
     <string name="dialog_title_input_phone">Enter Your Phone Number</string>
     <string name="dialog_title_input_empid">Enter Your Employee ID</string>
     <string name="dialog_title_input_branchid">Enter Your Branch ID</string>
@@ -106,4 +106,8 @@
     <string name="err_user_empid_length">Employee ID should not be more than 8 characters</string>
     <string name="err_user_branchid_length">Branch ID should not be more than 4 characters</string>
     <string name="error_field_cannot_zero">This field cannot be zero</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_text_answer">Answer</string>
 </resources>

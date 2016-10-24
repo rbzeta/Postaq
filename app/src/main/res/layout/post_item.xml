@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/post_card_margin"
+        android:elevation="3dp"
+        card_view:cardCornerRadius="@dimen/post_card_radius">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="@dimen/post_avatar_width"
+                    android:layout_height="@dimen/post_avatar_height"
+                    android:layout_margin="@dimen/post_avatar_margin"
+                    android:src="@drawable/img_profile_test"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    tools:ignore="ContentDescription" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/post_avatar_margin"
+                        tools:ignore="UselessParent">
+
+                        <TextView
+                            android:text="Robyn Bagus Seta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textPostUserName" />
+
+                        <TextView
+                            android:text="@string/text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textPostTimePosted"
+                            android:layout_below="@+id/textPostUserName" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/post_avatar_margin"
+                android:id="@+id/textPostText" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/post_image_height"
+                android:layout_marginTop="@dimen/post_avatar_margin"
+                android:layout_marginBelow="@dimen/post_avatar_margin"
+                android:src="@drawable/tes_post_image"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                tools:ignore="ContentDescription" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textTotalAnswer"
+                    android:layout_marginLeft="@dimen/post_avatar_margin"
+                    android:layout_marginRight="@dimen/post_avatar_margin"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+            <TextView
+                android:text="@string/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/post_avatar_margin"
+                android:id="@+id/textPostAnswer" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_transparent_border_top"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+                <Button
+                    android:text="@string/button_text_answer"
+                    android:textAllCaps="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_comment_black_24dp"
+                    android:drawablePadding="@dimen/post_card_margin"
+                    android:id="@+id/button"
+                    android:background="@drawable/transparent_background"
+                    android:layout_gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
