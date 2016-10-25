@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,10 +24,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import app.rbzeta.postaq.R;
+import app.rbzeta.postaq.adapter.PostQuestionAdapter;
 import app.rbzeta.postaq.app.AppConfig;
 import app.rbzeta.postaq.helper.SessionManager;
 import app.rbzeta.postaq.helper.UIHelper;
+import app.rbzeta.postaq.rest.model.UserForm;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,6 +90,20 @@ public class HomeActivity extends AppCompatActivity
             textNavHeadUserBranchName = (TextView)navigationViewHeaderView.findViewById(R.id.textNavHeadUserBranchName);
 
             loadNavigationHeaderView();
+
+            List<UserForm> list = new ArrayList<>();
+            PostQuestionAdapter adapter = new PostQuestionAdapter(this,list);
+            RecyclerView recyclerView = (RecyclerView)findViewById(R.id.homeRecycleView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(adapter);
+            UserForm a = new UserForm();
+            list.add(a);
+            a = new UserForm();
+            list.add(a);
+            a = new UserForm();
+            list.add(a);
+            adapter.notifyDataSetChanged();
 
         }else{
             Intent intent = new Intent(this,LoginActivity.class);

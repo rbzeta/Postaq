@@ -1,127 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/post_card_margin"
+    card_view:cardElevation="@dimen/post_card_elevation"
+    card_view:cardCornerRadius="@dimen/post_card_radius"
+    card_view:cardUseCompatPadding="true">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/post_card_margin"
-        android:elevation="3dp"
-        card_view:cardCornerRadius="@dimen/post_card_radius">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="@dimen/post_avatar_width"
-                    android:layout_height="@dimen/post_avatar_height"
-                    android:layout_margin="@dimen/post_avatar_margin"
-                    android:src="@drawable/img_profile_test"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    tools:ignore="ContentDescription" />
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/post_avatar_margin"
-                        tools:ignore="UselessParent">
-
-                        <TextView
-                            android:text="Robyn Bagus Seta"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textPostUserName" />
-
-                        <TextView
-                            android:text="@string/text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textPostTimePosted"
-                            android:layout_below="@+id/textPostUserName" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:text="@string/text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/post_avatar_margin"
-                android:id="@+id/textPostText" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/post_image_height"
-                android:layout_marginTop="@dimen/post_avatar_margin"
-                android:layout_marginBelow="@dimen/post_avatar_margin"
-                android:src="@drawable/tes_post_image"
-                android:scaleType="centerCrop"
+                android:layout_width="@dimen/post_avatar_width"
+                android:layout_height="@dimen/post_avatar_height"
+                android:layout_margin="@dimen/post_avatar_margin"
                 android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_profile_test"
                 tools:ignore="ContentDescription" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="@string/text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textTotalAnswer"
-                    android:layout_marginLeft="@dimen/post_avatar_margin"
-                    android:layout_marginRight="@dimen/post_avatar_margin"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
-            </RelativeLayout>
-
-            <TextView
-                android:text="@string/text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/post_avatar_margin"
-                android:id="@+id/textPostAnswer" />
-
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_transparent_border_top"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin">
+                android:orientation="vertical">
 
-                <Button
-                    android:text="@string/button_text_answer"
-                    android:textAllCaps="false"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_comment_black_24dp"
-                    android:drawablePadding="@dimen/post_card_margin"
-                    android:id="@+id/button"
-                    android:background="@drawable/transparent_background"
-                    android:layout_gravity="center_vertical|center_horizontal" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/post_avatar_margin"
+                    tools:ignore="UselessParent">
+
+                    <TextView
+                        android:id="@+id/textPostUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Robyn Bagus Seta"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/edit_text_size"/>
+
+                    <TextView
+                        android:id="@+id/textPostTimePosted"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textPostUserName"
+                        android:text="Questioned at 2.30 pm"
+                        android:textSize="12sp"/>
+
+                    <ImageView
+                        android:id="@+id/img_post_overflow"
+                        android:layout_width="@dimen/ic_post_overflow_width"
+                        android:layout_height="@dimen/ic_post_overflow_height"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/ic_post_overflow_margin_top"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_dots"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+
             </LinearLayout>
-
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textPostText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/post_avatar_margin"
+            android:text="Asswrwb. Met pagi Rini, mhn dilaksanakan hals sbb ya :
+
+Assww Selamat Pagi Bapak Ibu ybh, mohon perkenannya membantu u mengukur dg stopwatch Hp, brapa detik kah response time
+1. Buka blokir bripens
+2. Tarik setor di teller
+3. Interface brinet Las
+Plz mohon dilakukan oleh kanwil binaan, sebaiknya minimal 150 unit kerja( cab, kcp, unit dsb)Diharap posisi tgl 25 okt sd 5 nov 16.  Tq somuch .. Wassww
+
+Thank you ya.
+Wass"
+            style="@style/TextAppearance.AppCompat.Body2"/>
+
+        <ImageView
+            android:id="@+id/imgPostQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/post_image_height"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/tes_post_image"
+            tools:ignore="ContentDescription"
+            android:clickable="true"/>
+
+        <TextView
+            android:id="@+id/textPostTotalAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/post_avatar_margin"
+            android:textColor="@color/colorPrimary"
+            android:text="10 Answers"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_transparent_border_top"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/transparent_background"
+                android:drawableStart="@drawable/ic_comment_black_24dp"
+                android:drawablePadding="@dimen/post_card_margin"
+                android:text="@string/button_text_answer"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
