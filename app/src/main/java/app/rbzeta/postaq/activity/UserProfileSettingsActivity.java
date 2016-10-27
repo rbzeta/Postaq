@@ -889,7 +889,8 @@ public class UserProfileSettingsActivity extends AppCompatActivity
 
            }else if (editTextType.equals(getString(R.string.dialog_title_input_phone_hint))) {
                if (!session.getUserPhone().equals(text)) {
-                   if (text.length() > getResources().getInteger(R.integer.max_phone_number) || text.length() < 6){
+                   if (text.length() > getResources().getInteger(R.integer.max_phone_number) ||
+                           text.length() < getResources().getInteger(R.integer.min_phone_number)){
                        UIHelper.showCustomSnackBar(fabPicture,
                                getString(R.string.err_user_phone_length),Color.RED);
                        return;

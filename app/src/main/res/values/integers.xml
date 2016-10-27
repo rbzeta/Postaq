@@ -6,4 +6,5 @@
     <integer name="max_password">20</integer>
     <integer name="max_name">40</integer>
     <integer name="max_emp_id">8</integer>
+    <integer name="min_phone_number">6</integer>
 </resources>
