@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +25,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,6 +43,7 @@ import java.util.Date;
 
 import app.rbzeta.postaq.R;
 import app.rbzeta.postaq.app.AppConfig;
+import app.rbzeta.postaq.custom.CircleTransform;
 import app.rbzeta.postaq.database.MyDBHandler;
 import app.rbzeta.postaq.dialog.EditTextDialogFragment;
 import app.rbzeta.postaq.helper.PermissionHelper;
@@ -86,9 +90,10 @@ public class UserProfileSettingsActivity extends AppCompatActivity
     private TextView textPhoneValue;
     private TextView textEmployeeIdValue;
     private TextView textBranchIdValue;
-    private CircleImageView toolbarAvatar;
+    private ImageView imageProfilePicture;
     private FloatingActionButton fabPicture;
     private PermissionHelper  permissionHelper;
+    private Toolbar toolbar;
     private String mCurrentPhotoPath;
 
     private String mNewNameValue;
@@ -96,17 +101,30 @@ public class UserProfileSettingsActivity extends AppCompatActivity
     private String mNewEmployeeIdValue;
     private String mNewBranchIdValue;
 
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (makeTranslucent) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            } else {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile_settings);
         permissionHelper= new PermissionHelper(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarUserProfile);
+        setStatusBarTranslucent(true);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbarUserProfile);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(null);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setToolbarNavigationIcon(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -336,8 +354,8 @@ public class UserProfileSettingsActivity extends AppCompatActivity
                 mCurrentPhotoPath = getRealPathFromURI(UserProfileSettingsActivity.this,selectedImage);
 
                 // Get the dimensions of the View
-                int targetW = toolbarAvatar.getWidth();
-                int targetH = toolbarAvatar.getHeight();
+                int targetW = imageProfilePicture.getWidth();
+                int targetH = imageProfilePicture.getHeight();
 
                 // Get the dimensions of the bitmap
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -434,8 +452,8 @@ public class UserProfileSettingsActivity extends AppCompatActivity
 
                 file = createImageFile();
 
-                int targetW = toolbarAvatar.getWidth();
-                int targetH = toolbarAvatar.getHeight();
+                int targetW = imageProfilePicture.getWidth();
+                int targetH = imageProfilePicture.getHeight();
 
                 int photoW = bitmap.getWidth();
                 int photoH = bitmap.getHeight();
@@ -583,21 +601,39 @@ public class UserProfileSettingsActivity extends AppCompatActivity
     }
 
     private void reloadProfilePicture() {
-        Glide.with(getApplicationContext())
-                .load(session.getUserProfilePictureUrl())
+        String url = session.getUserProfilePictureUrl();
+        /*Glide.with(this).load(url)
+                .crossFade()
+                .thumbnail(0.2f)
+                .centerCrop()
                 .placeholder(R.drawable.img_user_profile_default)
                 .error(R.drawable.img_user_profile_default)
+                .bitmapTransform(new CircleTransform(this))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
-                .centerCrop()
-                .thumbnail(0.2f)
-                .into(toolbarAvatar);
+                .into(imageProfilePicture);*/
+        if (url == null) {
+            Glide.with(this).load(R.drawable.img_user_profile_default)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .bitmapTransform(new CircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(imageProfilePicture);
+        }else
+            Glide.with(this).load(url)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .error(R.drawable.img_user_profile_default)
+                    .bitmapTransform(new CircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(imageProfilePicture);
     }
 
     private File prepareImageCameraForUpload() {
         // Get the dimensions of the View
-        int targetW = toolbarAvatar.getWidth();
-        int targetH = toolbarAvatar.getHeight();
+        int targetW = imageProfilePicture.getWidth();
+        int targetH = imageProfilePicture.getHeight();
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -673,7 +709,7 @@ public class UserProfileSettingsActivity extends AppCompatActivity
         }
 
         return file;
-        //toolbarAvatar.setImageBitmap(resultBitmap);
+        //imageProfilePicture.setImageBitmap(resultBitmap);
     }
 
     private void galleryAddPic() {
@@ -711,20 +747,38 @@ public class UserProfileSettingsActivity extends AppCompatActivity
     private void setToolbarUserProperties() {
         TextView toolbarTitle = (TextView) findViewById(R.id.textToolbarTitleName);
         TextView toolbarSubtitle = (TextView) findViewById(R.id.textToolbarSubtitleName);
-        toolbarAvatar = (CircleImageView)findViewById(R.id.toolbarAvatar);
+        imageProfilePicture = (ImageView)findViewById(R.id.toolbarAvatar);
 
         toolbarTitle.setText(session.getUserName());
         toolbarSubtitle.setText(session.getUserEmailAddress());
 
         String url = session.getUserProfilePictureUrl();
-        Glide.with(getApplicationContext())
-                .load(url)
+        /*Glide.with(this).load(url)
+                .crossFade()
+                .thumbnail(0.2f)
+                .centerCrop()
                 .placeholder(R.drawable.img_user_profile_default)
                 .error(R.drawable.img_user_profile_default)
+                .bitmapTransform(new CircleTransform(this))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
+                .into(imageProfilePicture);*/
+        if (url == null) {
+            Glide.with(this).load(R.drawable.img_user_profile_default)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .bitmapTransform(new CircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(imageProfilePicture);
+        }else
+        Glide.with(this).load(url)
+                .crossFade()
+                .thumbnail(0.2f)
                 .centerCrop()
-                .into(toolbarAvatar);
+                .error(R.drawable.img_user_profile_default)
+                .bitmapTransform(new CircleTransform(this))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(imageProfilePicture);
     }
 
     @Override
@@ -885,6 +939,7 @@ public class UserProfileSettingsActivity extends AppCompatActivity
                    mNewNameValue = text;
                    textNameValue.setText(text);
                    session.setUserInfoChanged(true);
+                   setToolbarNavigationIcon(true);
                }
 
            }else if (editTextType.equals(getString(R.string.dialog_title_input_phone_hint))) {
@@ -899,6 +954,7 @@ public class UserProfileSettingsActivity extends AppCompatActivity
                    mNewPhoneValue = text;
                    textPhoneValue.setText(text);
                    session.setUserInfoChanged(true);
+                   setToolbarNavigationIcon(true);
                }
            }else if (editTextType.equals(getString(R.string.dialog_title_input_empid_hint))) {
                if (!String.valueOf(session.getUserEmployeeId()).equals(text)) {
@@ -911,6 +967,7 @@ public class UserProfileSettingsActivity extends AppCompatActivity
                    mNewEmployeeIdValue = text;
                    textEmployeeIdValue.setText(text);
                    session.setUserInfoChanged(true);
+                   setToolbarNavigationIcon(true);
                }
            }else if (editTextType.equals(getString(R.string.dialog_title_input_branchid_hint))) {
                if (!String.valueOf(session.getUserBranchId()).equals(text)) {
@@ -923,9 +980,18 @@ public class UserProfileSettingsActivity extends AppCompatActivity
                    mNewBranchIdValue = text;
                    textBranchIdValue.setText(text);
                    session.setUserInfoChanged(true);
+                   setToolbarNavigationIcon(true);
                }
            }
         }
+    }
+
+    private void setToolbarNavigationIcon(boolean b) {
+        if (b){
+            toolbar.setNavigationIcon(R.drawable.ic_playlist_add_check_white_24dp);
+        }else
+            toolbar.setNavigationIcon(null);
+
     }
 
     @Override

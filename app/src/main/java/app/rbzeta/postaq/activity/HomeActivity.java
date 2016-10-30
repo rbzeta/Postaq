@@ -2,6 +2,7 @@ package app.rbzeta.postaq.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ import java.util.List;
 import app.rbzeta.postaq.R;
 import app.rbzeta.postaq.adapter.PostQuestionAdapter;
 import app.rbzeta.postaq.app.AppConfig;
+import app.rbzeta.postaq.custom.CircleTransform;
 import app.rbzeta.postaq.helper.SessionManager;
 import app.rbzeta.postaq.helper.UIHelper;
 import app.rbzeta.postaq.rest.model.UserForm;
@@ -46,6 +50,20 @@ public class HomeActivity extends AppCompatActivity
     private TextView textNavHeadUserName;
     private TextView textNavHeadUserEmail;
     private TextView textNavHeadUserBranchName;
+    private List<UserForm> list = new ArrayList<>();
+    private PostQuestionAdapter adapter;
+    private RecyclerView recyclerView;
+
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (makeTranslucent) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            } else {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +74,22 @@ public class HomeActivity extends AppCompatActivity
 
             setContentView(R.layout.activity_home);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
+            //toolbar.setContentInsetsAbsolute(100,0);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(R.string.title_activity_home);
 
-
+            setStatusBarTranslucent(true);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabUserProfilePhoto);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "On progress", Snackbar.LENGTH_LONG)
+                    UserForm b = new UserForm();
+                    b.setName(getString(R.string.large_text));
+                    list.add(0,b);
+                    adapter.notifyItemInserted(0);
+                    recyclerView.scrollToPosition(0);
+                    Snackbar.make(view, "Total Post : "+adapter.getItemCount(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             });
@@ -79,6 +103,7 @@ public class HomeActivity extends AppCompatActivity
             mDrawerToggle = new SmoothActionBarDrawerToggle(this, drawer, toolbar,
                     R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.setDrawerListener(mDrawerToggle);
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
             mDrawerToggle.syncState();
 
             navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -91,17 +116,16 @@ public class HomeActivity extends AppCompatActivity
 
             loadNavigationHeaderView();
 
-            List<UserForm> list = new ArrayList<>();
-            PostQuestionAdapter adapter = new PostQuestionAdapter(this,list);
-            RecyclerView recyclerView = (RecyclerView)findViewById(R.id.homeRecycleView);
+            list = new ArrayList<>();
+            adapter = new PostQuestionAdapter(this,list);
+            recyclerView = (RecyclerView)findViewById(R.id.homeRecycleView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            DefaultItemAnimator animator = new DefaultItemAnimator();
+            recyclerView.setItemAnimator(animator);
             recyclerView.setAdapter(adapter);
-            UserForm a = new UserForm();
-            list.add(a);
+            UserForm a;
             a = new UserForm();
-            list.add(a);
-            a = new UserForm();
+            a.setName("Text ini adalah test untuk text view tanpa elipsis");
             list.add(a);
             adapter.notifyDataSetChanged();
 
@@ -120,15 +144,33 @@ public class HomeActivity extends AppCompatActivity
         textNavHeadUserBranchName.setText(session.getBranchName());
 
         String url = session.getUserProfilePictureUrl();
-        Glide.with(getApplicationContext())
+        /*Glide.with(getApplicationContext())
                 .load(url)
                 .placeholder(R.drawable.img_user_profile_default)
                 .error(R.drawable.img_user_profile_default)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
+                .bitmapTransform(new CircleTransform(HomeActivity.this))
                 .centerCrop()
+                .crossFade()
                 .thumbnail(0.2f)
-                .into(profilePictureView);
+                .into(profilePictureView);*/
+        if (url == null) {
+            Glide.with(this).load(R.drawable.img_user_profile_default)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .bitmapTransform(new CircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(profilePictureView);
+        }else
+            Glide.with(this).load(url)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .error(R.drawable.img_user_profile_default)
+                    .bitmapTransform(new CircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(profilePictureView);
     }
 
 
@@ -151,47 +193,33 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.app_bar_search) {
+            //Toast.makeText(this,"Search action pressed",Toast.LENGTH_LONG).show();
+            //onSearchRequested();
+            Intent intent = new Intent(HomeActivity.this,SearchActivity.class);
+            startActivity(intent);
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
-
-        /*if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
 
         switch (id){
             case R.id.nav_logout: logoutAttempt();break;
@@ -314,14 +342,22 @@ public class HomeActivity extends AppCompatActivity
 
     private void reloadProfilePicture() {
         String url = session.getUserProfilePictureUrl();
-        Glide.with(getApplicationContext())
-                .load(url)
-                .placeholder(R.drawable.img_user_profile_default)
-                .error(R.drawable.img_user_profile_default)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
-                .centerCrop()
-                .thumbnail(0.2f)
-                .into(profilePictureView);
+        if (url == null) {
+            Glide.with(this).load(R.drawable.img_user_profile_default)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .bitmapTransform(new CircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(profilePictureView);
+        }else
+            Glide.with(this).load(url)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .error(R.drawable.img_user_profile_default)
+                    .bitmapTransform(new CircleTransform(this))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(profilePictureView);
     }
 }

@@ -25,6 +25,20 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                android:src="@drawable/img_nav_header_bg"
+                tools:ignore="ContentDescription" />
+            </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbarUserProfile"
@@ -36,7 +50,7 @@
             <me.henrytao.smoothappbarlayout.SmoothCollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:minHeight="?attr/actionBarSize"
                 app:sctl_avatar_id="@+id/toolbarAvatar"
                 app:sctl_collapsed_avatarSize="40dp"
@@ -44,7 +58,7 @@
                 app:sctl_collapsed_offsetY="0dp"
                 app:sctl_collapsed_subtitleTextSize="12dp"
                 app:sctl_collapsed_titleTextSize="14dp"
-                app:sctl_expanded_avatarSize="60dp"
+                app:sctl_expanded_avatarSize="@dimen/img_profile_picture_height"
                 app:sctl_expanded_offsetX="16dp"
                 app:sctl_expanded_offsetY="16dp"
                 app:sctl_expanded_subtitleTextSize="16dp"
@@ -52,19 +66,20 @@
                 app:sctl_subtitle_id="@+id/textToolbarSubtitleName"
                 app:sctl_title_id="@+id/textToolbarTitleName">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/toolbarAvatar"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/img_profile_picture_width"
+                    android:layout_height="@dimen/img_profile_picture_height"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/img_user_profile_default"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
                     android:orientation="vertical">
 
                     <TextView

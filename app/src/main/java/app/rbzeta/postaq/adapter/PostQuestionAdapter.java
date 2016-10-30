@@ -1,7 +1,6 @@
 package app.rbzeta.postaq.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,10 +34,12 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView overflow;
+        public TextView textPostQuestion;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             overflow = (ImageView)itemView.findViewById(R.id.img_post_overflow);
+            textPostQuestion = (TextView) itemView.findViewById(R.id.textPostText);
         }
     }
 
@@ -51,10 +54,22 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
+        UserForm item = mPostList.get(position);
+        //String textPost = item.getName().replaceAll("(\\r|\\n|\\r\\n)+", "\\\\n");
+        String textPost = item.getName();
+        holder.textPostQuestion.setText(textPost);
+        holder.textPostQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,"Go to view question intent",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupMenu(holder.overflow,position);
+                showPopupMenu(holder.overflow,holder.getLayoutPosition());
             }
         });
 
@@ -78,9 +93,11 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_delete_question:
-                    UIHelper.showToastLong(mContext,"Your post has been deleted");
+                    UIHelper.showToastLong(mContext,"Position "+position+" has been deleted");
+
                     mPostList.remove(position);
-                    notifyDataSetChanged();
+                    notifyItemRemoved(position);
+                    //notifyItemRangeRemoved(position,getItemCount());
                     return true;
                 default:
             }

@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginTop="@dimen/post_card_margin"
-    card_view:cardElevation="@dimen/post_card_elevation"
     card_view:cardCornerRadius="@dimen/post_card_radius"
+    card_view:cardElevation="@dimen/post_card_elevation"
     card_view:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -30,83 +30,110 @@
                 android:src="@drawable/img_profile_test"
                 tools:ignore="ContentDescription" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/post_avatar_margin"
+                android:layout_marginBottom="@dimen/post_avatar_margin"
+                android:layout_marginEnd="@dimen/post_avatar_margin"
+                tools:ignore="UselessParent">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/post_avatar_margin"
-                    tools:ignore="UselessParent">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
 
                     <TextView
                         android:id="@+id/textPostUserName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Robyn Bagus Seta"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Robyn Bagus Seta Eiji Muafkar dan Ezio Muazzam"
                         android:textColor="@android:color/black"
-                        android:textSize="@dimen/edit_text_size"/>
+                        android:textSize="@dimen/edit_text_size"
+                        android:layout_marginEnd="@dimen/ic_post_overflow_width"
+                        style="@style/TextAppearance.AppCompat.Body2"/>
 
                     <TextView
                         android:id="@+id/textPostTimePosted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/textPostUserName"
                         android:text="Questioned at 2.30 pm"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
-                    <ImageView
-                        android:id="@+id/img_post_overflow"
-                        android:layout_width="@dimen/ic_post_overflow_width"
-                        android:layout_height="@dimen/ic_post_overflow_height"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="@dimen/ic_post_overflow_margin_top"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_dots"
-                        tools:ignore="ContentDescription" />
 
-                </RelativeLayout>
-
-            </LinearLayout>
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/img_post_overflow"
+                    android:layout_width="@dimen/ic_post_overflow_width"
+                    android:layout_height="@dimen/ic_post_overflow_height"
+                    android:scaleType="center"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_dots"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textPostText"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/post_avatar_margin"
-            android:text="Asswrwb. Met pagi Rini, mhn dilaksanakan hals sbb ya :
-
-Assww Selamat Pagi Bapak Ibu ybh, mohon perkenannya membantu u mengukur dg stopwatch Hp, brapa detik kah response time
-1. Buka blokir bripens
-2. Tarik setor di teller
-3. Interface brinet Las
-Plz mohon dilakukan oleh kanwil binaan, sebaiknya minimal 150 unit kerja( cab, kcp, unit dsb)Diharap posisi tgl 25 okt sd 5 nov 16.  Tq somuch .. Wassww
-
-Thank you ya.
-Wass"
-            style="@style/TextAppearance.AppCompat.Body2"/>
+            android:layout_margin="@dimen/post_avatar_margin" >
+            <TextView
+                android:id="@+id/textPostText"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="12"
+                android:text="Your Question Here"
+                android:clickable="true"/>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/imgPostQuestion"
             android:layout_width="match_parent"
             android:layout_height="@dimen/post_image_height"
             android:adjustViewBounds="true"
+            android:clickable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/tes_post_image"
-            tools:ignore="ContentDescription"
-            android:clickable="true"/>
+            tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/textPostTotalAnswer"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/post_avatar_margin"
-            android:textColor="@color/colorPrimary"
-            android:text="10 Answers"
-            android:textSize="12sp"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textPostTotalAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/post_avatar_margin"
+                android:text="10 Answers"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorPrimary"
+                android:clickable="true"
+                android:layout_alignParentStart="true"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/button_radius_blue"
+                android:layout_margin="@dimen/post_avatar_margin">
+                <TextView
+                    android:id="@+id/textPostStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Answered"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/white"
+                    android:clickable="true"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,13 +144,13 @@ Wass"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnPostAnswer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:background="@drawable/transparent_background"
-                android:drawableStart="@drawable/ic_comment_black_24dp"
                 android:drawablePadding="@dimen/post_card_margin"
+                android:drawableStart="@drawable/ic_question_answer_black_24dp"
                 android:text="@string/button_text_answer"
                 android:textAllCaps="false" />
         </LinearLayout>

@@ -33,7 +33,7 @@ public class AppConfig {
     public static final int ACCOUNT_STATUS_INACTIVE = 99;
 
     //preference related constants
-    public static final String PREF_NAME = "jakers_pref_name";
+    public static final String PREF_NAME = "postaq_pref_name";
     public static final String PREF_KEY_IS_LOGGED_IN = "pref_key_user_is_logged_in";
     public static final String PREF_KEY_USER_STATUS = "pref_key_user_status";
     public static final String PREF_KEY_VERIFICATION_CODE ="pref_key_user_verification_code" ;
@@ -51,10 +51,11 @@ public class AppConfig {
 
 
     //File related constants
-    public static final String DIR_IMG_FILE_NAME = "/Jakers";
+    public static final String DIR_IMG_FILE_NAME = "/Postaq";
     public static final String EMPTY_STRING = "";
     public static final String STR_FILE_PROVIDER = "app.rbzeta.postaq.fileprovider";
-    public static  String PREFIX_IMG_FILE_NAME = "IMG_";
+    public static final String SEARCH_SUGGESTION_AUTHORITY = "app.rbzeta.postaq.HomeSearchSuggestionProvider";
+    public static  String PREFIX_IMG_FILE_NAME = "Postaq_";
 
 
     public static long TIME_INTERVAL = 2000;
