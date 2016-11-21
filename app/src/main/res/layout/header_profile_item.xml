@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+    android:id="@+id/profile_header_container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/profile_header_height"
+    android:orientation="vertical"
+    android:background="@drawable/img_nav_header_bg">
+
+    <ImageView
+        android:id="@+id/img_header_profile_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="45dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_profile_test"
+        android:layout_gravity="center_vertical|center_horizontal" />
+
+    <TextView
+        android:text="Robyn Bagus Seta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_profile_header_user_name"
+        android:layout_below="@+id/img_header_profile_avatar"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/white"
+        android:layout_gravity="center_vertical|center_horizontal" />
+</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
