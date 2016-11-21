@@ -55,6 +55,11 @@ public class AppConfig {
     public static final String EMPTY_STRING = "";
     public static final String STR_FILE_PROVIDER = "app.rbzeta.postaq.fileprovider";
     public static final String SEARCH_SUGGESTION_AUTHORITY = "app.rbzeta.postaq.HomeSearchSuggestionProvider";
+    public static final int TAB_HOME = 0;
+    public static final int TAB_NOTIFICATION = 1;
+    public static final int TAB_PROFILE = 2;
+    public static final int TYPE_ITEM = 111;
+    public static final int TYPE_HEADER = 112;
     public static  String PREFIX_IMG_FILE_NAME = "Postaq_";
 
 

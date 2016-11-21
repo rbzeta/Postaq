@@ -48,7 +48,7 @@
         <activity android:name="app.rbzeta.postaq.activity.VerifyCodeActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
-        <activity android:name="app.rbzeta.postaq.activity.HomeActivity"
+        <activity android:name="app.rbzeta.postaq.home.HomeActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
             <!--<meta-data android:name="android.app.default_searchable"

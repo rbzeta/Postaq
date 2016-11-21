@@ -56,7 +56,6 @@ import app.rbzeta.postaq.rest.model.FileUploadResponseMessage;
 import app.rbzeta.postaq.rest.model.ResponseMessage;
 import app.rbzeta.postaq.rest.model.User;
 import app.rbzeta.postaq.rest.model.UserProfileResponseMessage;
-import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

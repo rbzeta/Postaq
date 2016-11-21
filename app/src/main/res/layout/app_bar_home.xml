@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="app.rbzeta.postaq.activity.HomeActivity">
+    tools:context="app.rbzeta.postaq.home.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,11 +17,25 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll"
             app:popupTheme="@style/MyMaterialTheme.PopupOverlay" />
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/tab_home"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@android:color/white"/>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_home" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpagerHome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!--<include layout="@layout/content_home" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabUserProfilePhoto"
@@ -31,6 +45,9 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_new_thread_white"
         app:backgroundTint="@color/colorPrimary"
-        app:rippleColor="@color/colorPrimaryDark" />
+        app:rippleColor="@color/colorPrimaryDark"
+        app:layout_anchor="@id/viewpagerHome"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_behavior="app.rbzeta.postaq.custom.ScrollAwareFABBehavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

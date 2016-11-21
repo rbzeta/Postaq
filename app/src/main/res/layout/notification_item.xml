@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/notification_item_padding"
+    android:paddingBottom="@dimen/notification_item_padding">
+
+    <ImageView
+        android:id="@+id/img_item_notification_profile"
+        android:layout_width="@dimen/post_avatar_width"
+        android:layout_height="@dimen/post_avatar_height"
+        android:layout_margin="@dimen/post_avatar_margin"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_profile_test"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/post_avatar_margin"
+        android:layout_marginEnd="@dimen/post_avatar_margin"
+        android:layout_marginTop="@dimen/post_avatar_margin"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/text_item_notification"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="Robyn Bagus Seta answer on Nurpani question"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/text_item_notification_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="52 minutes ago"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+

@@ -8,15 +8,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
 import app.rbzeta.postaq.R;
+import app.rbzeta.postaq.custom.CircleTransform;
 import app.rbzeta.postaq.helper.UIHelper;
-import app.rbzeta.postaq.rest.model.UserForm;
+import app.rbzeta.postaq.model.PostQuestion;
 
 /**
  * Created by Robyn on 25/10/2016.
@@ -24,22 +30,90 @@ import app.rbzeta.postaq.rest.model.UserForm;
 
 public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapter.MyViewHolder> {
 
-    private List<UserForm> mPostList;
+    private List<PostQuestion> mPostList;
     private Context mContext;
+    private static final int TYPE_IMAGE_POST = 1;
+    private static final int TYPE_TEXT_POST = 2;
 
-    public PostQuestionAdapter(Context context,List<UserForm> postList) {
+    public PostQuestionAdapter(Context context,List<PostQuestion> postList) {
         mContext = context;
         mPostList = postList;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public ImageView overflow;
-        public TextView textPostQuestion;
+        private ImageView overflow,postAvatar,postImage,postAvatarAnswer;
+        private TextView textPostQuestion,textPostTime,textPostUserName,textPostAnswerCount;
+        private TextView textPostIsAnswered,textPostAnswer,textPostUserNameAnswer;
+        private Button btnAnswer;
+        private View answerContainer,buttonAnswerContainer;
+        private LinearLayout textAnswerFlagContainer;
 
-        public MyViewHolder(View itemView) {
+        private MyViewHolder(View itemView) {
             super(itemView);
+            answerContainer = itemView.findViewById(R.id.container_post_answer);
+            buttonAnswerContainer = itemView.findViewById(R.id.container_post_button_answer);
+            textAnswerFlagContainer = (LinearLayout)itemView.findViewById(R.id.container_post_text_answer_flag);
             overflow = (ImageView)itemView.findViewById(R.id.img_post_overflow);
-            textPostQuestion = (TextView) itemView.findViewById(R.id.textPostText);
+            postAvatar = (ImageView)itemView.findViewById(R.id.img_post_avatar);
+            postImage = (ImageView)itemView.findViewById(R.id.img_post_question);
+            postAvatarAnswer = (ImageView)itemView.findViewById(R.id.img_post_avatar_answer);
+            textPostQuestion = (TextView) itemView.findViewById(R.id.text_post_text);
+            textPostTime = (TextView) itemView.findViewById(R.id.text_post_time);
+            textPostUserName = (TextView) itemView.findViewById(R.id.text_post_user_name);
+            textPostAnswerCount = (TextView) itemView.findViewById(R.id.text_post_total_answer);
+            textPostIsAnswered = (TextView) itemView.findViewById(R.id.text_post_is_answered);
+            textPostAnswer = (TextView) itemView.findViewById(R.id.text_post_answer);
+            textPostUserNameAnswer = (TextView) itemView.findViewById(R.id.text_post_user_name_answer);
+            btnAnswer = (Button)itemView.findViewById(R.id.button_post_answer);
+            btnAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext,"Go to answer question intent",Toast.LENGTH_LONG).show();
+                }
+            });
+
+            textPostAnswerCount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext,"Open answer fragment",Toast.LENGTH_LONG).show();
+                }
+            });
+
+            textPostUserName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext,"Go to view user profile intent",Toast.LENGTH_LONG).show();
+                }
+            });
+
+            textPostQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,"Go to view question intent",Toast.LENGTH_LONG).show();
+                }
+            });
+
+            overflow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPopupMenu(overflow,getLayoutPosition());
+                }
+            });
+
+            textPostAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext,"Open answer fragment",Toast.LENGTH_LONG).show();
+                }
+            });
+
+            postImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext,"Open image post activity or fragment",Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
     }
 
@@ -54,25 +128,71 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        UserForm item = mPostList.get(position);
-        //String textPost = item.getName().replaceAll("(\\r|\\n|\\r\\n)+", "\\\\n");
-        String textPost = item.getName();
-        holder.textPostQuestion.setText(textPost);
-        holder.textPostQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,"Go to view question intent",Toast.LENGTH_LONG).show();
-            }
-        });
+        PostQuestion postItem = mPostList.get(position);
 
+        if (postItem.getAvatarUrl() == null) {
+            Glide.with(mContext).load(R.drawable.img_user_profile_default)
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .bitmapTransform(new CircleTransform(mContext))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(holder.postAvatar);
+        }else
+            Glide.with(mContext).load(postItem.getAvatarUrl())
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .error(R.drawable.img_user_profile_default)
+                    .bitmapTransform(new CircleTransform(mContext))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(holder.postAvatar);
 
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupMenu(holder.overflow,holder.getLayoutPosition());
-            }
-        });
+        if(postItem.getPostType() == TYPE_IMAGE_POST){
+            holder.postImage.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(postItem.getPostImageUrl())
+                    .crossFade()
+                    .thumbnail(0.2f)
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(holder.postImage);
+        }else if(postItem.getPostType() == TYPE_TEXT_POST) {
+            holder.postImage.setVisibility(View.GONE);
+        }else holder.postImage.setVisibility(View.GONE);
 
+        String isAnswered = mContext.getString(R.string.text_unanswered);
+        if(postItem.isAnswered()){
+            isAnswered = mContext.getString(R.string.text_answered);
+            if (postItem.getAvatarAnswerUrl() == null) {
+                Glide.with(mContext).load(R.drawable.img_user_profile_default)
+                        .crossFade()
+                        .thumbnail(0.2f)
+                        .centerCrop()
+                        .bitmapTransform(new CircleTransform(mContext))
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(holder.postAvatarAnswer);
+            }else
+                Glide.with(mContext).load(postItem.getAvatarAnswerUrl())
+                        .crossFade()
+                        .thumbnail(0.2f)
+                        .centerCrop()
+                        .error(R.drawable.img_user_profile_default)
+                        .bitmapTransform(new CircleTransform(mContext))
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(holder.postAvatarAnswer);
+
+            holder.answerContainer.setVisibility(View.VISIBLE);
+            holder.buttonAnswerContainer.setVisibility(View.GONE);
+            holder.textAnswerFlagContainer.setBackgroundResource(R.drawable.button_radius_blue);
+            holder.textPostUserNameAnswer.setText(postItem.getUserNameAnswer());
+            holder.textPostAnswer.setText(postItem.getPostAnswer());
+
+        }
+        holder.textPostIsAnswered.setText(isAnswered);
+        holder.textPostTime.setText(postItem.getPostTime());
+        holder.textPostAnswerCount.setText(postItem.getTotalAnswer());
+        holder.textPostUserName.setText(postItem.getUserName());
+        holder.textPostQuestion.setText(postItem.getPostText());
     }
 
     private void showPopupMenu(View view, int position) {
@@ -84,9 +204,9 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
         popup.show();
     }
 
-    public class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener{
+    private class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener{
         private int position;
-        public MyMenuItemClickListener(int position){
+        private MyMenuItemClickListener(int position){
             this.position = position;
         }
         @Override
@@ -108,4 +228,5 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
     public int getItemCount() {
         return mPostList.size();
     }
+
 }

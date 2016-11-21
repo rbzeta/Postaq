@@ -1,10 +1,10 @@
 package app.rbzeta.postaq.activity;
 
-import android.graphics.Color;
-import android.support.v4.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;

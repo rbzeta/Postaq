@@ -8,5 +8,6 @@
     <color name="lightGrey">#e0e0d2</color>
     <color name="white">#ffffff</color>
     <color name="darkGrey">#adad85</color>
+    <color name="lightPurple">#e8d7ed</color>
     <color name="hint__material_light">@color/bright_foreground_disabled_material_light</color>
 </resources>

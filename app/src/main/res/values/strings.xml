@@ -210,4 +210,14 @@
     <string name="hint_branch_name">Branch Name</string>
     <string name="action_search">Search</string>
     <string name="hint_home_search">Search questions...</string>
+    <string name="title_tab_home">Home</string>
+    <string name="title_tab_notification">Notification</string>
+    <string name="title_tab_profile">Profile</string>
+    <string name="text_unanswered">Un-Answered</string>
+    <string name="text_answered">Answered</string>
+    <string name="hint_new_question">What\'s your question?</string>
+    <string name="text_user_name_sample">User Name</string>
+    <string name="button_text_ask_question">POST</string>
+    <string name="dialog_msg_discard_post_confirmation">Do you want to discard this question?</string>
+    <string name="no">No</string>
 </resources>

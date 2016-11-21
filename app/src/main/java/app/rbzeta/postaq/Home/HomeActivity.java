@@ -1,42 +1,44 @@
-package app.rbzeta.postaq.activity;
+package app.rbzeta.postaq.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import app.rbzeta.postaq.R;
-import app.rbzeta.postaq.adapter.PostQuestionAdapter;
+import app.rbzeta.postaq.activity.LoginActivity;
+import app.rbzeta.postaq.activity.SearchActivity;
+import app.rbzeta.postaq.activity.UserProfileSettingsActivity;
+import app.rbzeta.postaq.adapter.ViewPagerHomeAdapter;
 import app.rbzeta.postaq.app.AppConfig;
 import app.rbzeta.postaq.custom.CircleTransform;
 import app.rbzeta.postaq.helper.SessionManager;
 import app.rbzeta.postaq.helper.UIHelper;
-import app.rbzeta.postaq.rest.model.UserForm;
+import app.rbzeta.postaq.home.view.HomeNotificationFragment;
+import app.rbzeta.postaq.home.view.HomePostFragment;
+import app.rbzeta.postaq.home.view.HomeProfileFragment;
+import app.rbzeta.postaq.home.view.NewPostFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,9 +52,12 @@ public class HomeActivity extends AppCompatActivity
     private TextView textNavHeadUserName;
     private TextView textNavHeadUserEmail;
     private TextView textNavHeadUserBranchName;
-    private List<UserForm> list = new ArrayList<>();
-    private PostQuestionAdapter adapter;
-    private RecyclerView recyclerView;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerHomeAdapter mAdapter;
+    private FloatingActionButton fab;
+    public static boolean fabIsVisible = true;
+
 
     protected void setStatusBarTranslucent(boolean makeTranslucent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -74,23 +79,55 @@ public class HomeActivity extends AppCompatActivity
 
             setContentView(R.layout.activity_home);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
-            //toolbar.setContentInsetsAbsolute(100,0);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(R.string.title_activity_home);
 
-            setStatusBarTranslucent(true);
+            //setStatusBarTranslucent(true);
 
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabUserProfilePhoto);
+            viewPager = (ViewPager)findViewById(R.id.viewpagerHome);
+            setupViewPager();
+            tabLayout = (TabLayout)findViewById(R.id.tab_home);
+            tabLayout.setupWithViewPager(viewPager);
+            tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    super.onTabSelected(tab);
+                    setUITab(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    super.onTabUnselected(tab);
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                    super.onTabReselected(tab);
+
+                    if (tab.getPosition() == AppConfig.TAB_HOME){
+                        Fragment f = mAdapter.getItem(tab.getPosition());
+                        if (f != null) {
+                            View fragmentView = f.getView();
+                            RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.homeRecycleView);
+                            if (mRecyclerView != null) {
+                                mRecyclerView.smoothScrollToPosition(0);
+                                fab.show();
+                            }
+                        }
+                    }
+
+                }
+            });
+
+
+            fab = (FloatingActionButton) findViewById(R.id.fabUserProfilePhoto);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    UserForm b = new UserForm();
-                    b.setName(getString(R.string.large_text));
-                    list.add(0,b);
-                    adapter.notifyItemInserted(0);
-                    recyclerView.scrollToPosition(0);
-                    Snackbar.make(view, "Total Post : "+adapter.getItemCount(), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    //show fragment new post
+                    NewPostFragment fragment = new NewPostFragment();
+                    fragment.show(getSupportFragmentManager(),"fragment_new_post");
+
                 }
             });
 
@@ -116,19 +153,6 @@ public class HomeActivity extends AppCompatActivity
 
             loadNavigationHeaderView();
 
-            list = new ArrayList<>();
-            adapter = new PostQuestionAdapter(this,list);
-            recyclerView = (RecyclerView)findViewById(R.id.homeRecycleView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            DefaultItemAnimator animator = new DefaultItemAnimator();
-            recyclerView.setItemAnimator(animator);
-            recyclerView.setAdapter(adapter);
-            UserForm a;
-            a = new UserForm();
-            a.setName("Text ini adalah test untuk text view tanpa elipsis");
-            list.add(a);
-            adapter.notifyDataSetChanged();
-
         }else{
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
@@ -136,6 +160,34 @@ public class HomeActivity extends AppCompatActivity
         }
 
 
+    }
+
+    private void setUITab(int position) {
+        switch (position){
+            case AppConfig.TAB_HOME:
+                getSupportActionBar().setTitle(getString(R.string.title_tab_home));
+                fab.show();
+                fabIsVisible = true;
+                break;
+            case AppConfig.TAB_NOTIFICATION:
+                getSupportActionBar().setTitle(getString(R.string.title_tab_notification));
+                fab.hide();
+                fabIsVisible = false;
+                break;
+            case AppConfig.TAB_PROFILE:
+                getSupportActionBar().setTitle(getString(R.string.title_tab_profile));
+                fab.hide();
+                fabIsVisible = false;
+                break;
+        }
+    }
+
+    private void setupViewPager() {
+        mAdapter = new ViewPagerHomeAdapter(getSupportFragmentManager());
+        mAdapter.addFragment(new HomePostFragment(),getString(R.string.title_tab_home));
+        mAdapter.addFragment(new HomeNotificationFragment(),getString(R.string.title_tab_notification));
+        mAdapter.addFragment(new HomeProfileFragment(),getString(R.string.title_tab_profile));
+        viewPager.setAdapter(mAdapter);
     }
 
     private void loadNavigationHeaderView() {

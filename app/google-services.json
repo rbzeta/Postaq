@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "46585508683",
+    "firebase_url": "https://postaq-150200.firebaseio.com",
+    "project_id": "postaq-150200",
+    "storage_bucket": "postaq-150200.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46585508683:android:a8682d749d3c8c0e",
+        "android_client_info": {
+          "package_name": "app.rbzeta.postaq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46585508683-ort2kvdbgt87mou1j4ju53ureucalumn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn4lsG3Epe84Qioikb6xNg0l8v1lqL1V8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

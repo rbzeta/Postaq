@@ -18,7 +18,7 @@
     <dimen name="post_avatar_width">40dp</dimen>
     <dimen name="post_avatar_height">40dp</dimen>
     <dimen name="post_avatar_margin">10dp</dimen>
-    <dimen name="post_image_height">120dp</dimen>
+    <dimen name="post_image_height">200dp</dimen>
     <dimen name="ic_post_overflow_width">30dp</dimen>
     <dimen name="ic_post_overflow_height">40dp</dimen>
     <dimen name="ic_post_overflow_margin_top">5dp</dimen>
@@ -26,5 +26,7 @@
     <dimen name="img_profile_picture_width">70dp</dimen>
     <dimen name="img_profile_picture_height">70dp</dimen>
     <dimen name="navigation_header_height">175dp</dimen>
+    <dimen name="profile_header_height">200dp</dimen>
+    <dimen name="notification_item_padding">10dp</dimen>
 
 </resources>
