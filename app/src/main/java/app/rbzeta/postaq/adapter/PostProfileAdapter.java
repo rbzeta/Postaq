@@ -16,7 +16,7 @@ import java.util.List;
 import app.rbzeta.postaq.R;
 import app.rbzeta.postaq.custom.CircleTransform;
 import app.rbzeta.postaq.model.ProfileHeader;
-import app.rbzeta.postaq.rest.model.UserForm;
+import app.rbzeta.postaq.rest.message.UserForm;
 
 /**
  * Created by Robyn on 14/11/2016.

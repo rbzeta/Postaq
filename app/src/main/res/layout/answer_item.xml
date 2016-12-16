@@ -8,13 +8,13 @@
     android:paddingBottom="@dimen/notification_item_padding">
 
     <ImageView
-        android:id="@+id/img_item_notification_profile"
+        android:id="@+id/img_item_answer_profile"
         android:layout_width="@dimen/post_avatar_width"
         android:layout_height="@dimen/post_avatar_height"
         android:layout_margin="@dimen/post_avatar_margin"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_profile_test"
+        android:src="@drawable/img_user_profile_default"
         tools:ignore="ContentDescription" />
 
     <RelativeLayout
@@ -32,22 +32,24 @@
 
 
             <TextView
-                android:id="@+id/text_item_notification"
-                style="@style/TextAppearance.AppCompat.Body1"
+                android:id="@+id/text_item_answer_user_name"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Robyn Bagus Seta answer on Nurpani question"
-                android:textColor="@android:color/black"/>
+                android:text="@string/text_user_name_sample"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/edit_text_size"/>
 
             <TextView
-                android:id="@+id/text_item_notification_time"
-                android:layout_width="wrap_content"
+                android:id="@+id/text_item_answer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="52 minutes ago"
-                android:textSize="12sp" />
-
+                android:text="@string/text_your_answer"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:ellipsize="end"
+                android:maxLines="20"/>
 
         </LinearLayout>
     </RelativeLayout>

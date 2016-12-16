@@ -3,8 +3,8 @@ package app.rbzeta.postaq.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import app.rbzeta.postaq.app.AppConfig;
-import app.rbzeta.postaq.rest.model.User;
+import app.rbzeta.postaq.application.AppConfig;
+import app.rbzeta.postaq.rest.message.User;
 
 /**
  * Created by Robyn on 03/10/2016.

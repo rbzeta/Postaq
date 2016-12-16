@@ -1,4 +1,4 @@
-package app.rbzeta.postaq.rest.model;
+package app.rbzeta.postaq.rest.message;
 
 import com.google.gson.annotations.SerializedName;
 

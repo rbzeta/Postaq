@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -26,12 +27,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.List;
+
 import app.rbzeta.postaq.R;
 import app.rbzeta.postaq.activity.LoginActivity;
 import app.rbzeta.postaq.activity.SearchActivity;
 import app.rbzeta.postaq.activity.UserProfileSettingsActivity;
 import app.rbzeta.postaq.adapter.ViewPagerHomeAdapter;
-import app.rbzeta.postaq.app.AppConfig;
+import app.rbzeta.postaq.application.AppConfig;
 import app.rbzeta.postaq.custom.CircleTransform;
 import app.rbzeta.postaq.helper.SessionManager;
 import app.rbzeta.postaq.helper.UIHelper;
@@ -39,9 +42,10 @@ import app.rbzeta.postaq.home.view.HomeNotificationFragment;
 import app.rbzeta.postaq.home.view.HomePostFragment;
 import app.rbzeta.postaq.home.view.HomeProfileFragment;
 import app.rbzeta.postaq.home.view.NewPostFragment;
+import app.rbzeta.postaq.model.Question;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,NewPostFragment.OnSuccessPostQuestionListener{
     private long mBackPressed;
     private SessionManager session;
     private NavigationView navigationView;
@@ -85,6 +89,7 @@ public class HomeActivity extends AppCompatActivity
             //setStatusBarTranslucent(true);
 
             viewPager = (ViewPager)findViewById(R.id.viewpagerHome);
+            viewPager.setOffscreenPageLimit(3);
             setupViewPager();
             tabLayout = (TabLayout)findViewById(R.id.tab_home);
             tabLayout.setupWithViewPager(viewPager);
@@ -343,6 +348,16 @@ public class HomeActivity extends AppCompatActivity
     private void showSettingsLayout() {
     }
 
+    @Override
+    public void onSuccessPostQuestion(Question question) {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof HomePostFragment){
+                ((HomePostFragment)fragment).onSuccessPostQuestion(question);
+            }
+        }
+    }
+
     private class SmoothActionBarDrawerToggle extends ActionBarDrawerToggle {
 
         private Runnable runnable;
@@ -411,5 +426,16 @@ public class HomeActivity extends AppCompatActivity
                     .bitmapTransform(new CircleTransform(this))
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(profilePictureView);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof NewPostFragment){
+                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
+
     }
 }

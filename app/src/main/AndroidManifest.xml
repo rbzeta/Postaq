@@ -8,20 +8,20 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="false" />
 
     <application
-        android:name="app.rbzeta.postaq.app.MyApplication"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="app.rbzeta.postaq.fileprovider"
@@ -29,59 +29,75 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-        <provider android:name="app.rbzeta.postaq.provider.HomeSearchSuggestionProvider"
+        <provider
+            android:name=".provider.HomeSearchSuggestionProvider"
             android:authorities="app.rbzeta.postaq.HomeSearchSuggestionProvider"
-            android:enabled="true"/>
+            android:enabled="true" />
 
         <activity
-            android:name="app.rbzeta.postaq.activity.LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name="app.rbzeta.postaq.activity.SignUpActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name="app.rbzeta.postaq.activity.ForgotPasswordActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name="app.rbzeta.postaq.activity.VerifyCodeActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name="app.rbzeta.postaq.home.HomeActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait">
-            <!--<meta-data android:name="android.app.default_searchable"
-                android:value="app.rbzeta.postaq.activity.SearchActivity-->
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.VerifyCodeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+
+            <!--
+                <meta-data android:name="android.app.default_searchable"
+                android:value="app.rbzeta.postaq.activity.SearchActivity
+            -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="app.rbzeta.postaq.activity.UserProfileSettingsActivity"
+            android:name=".activity.UserProfileSettingsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".activity.SearchActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
+        <activity android:name=".activity.NewQuestionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"></activity>
 
         <receiver
-            android:name="app.rbzeta.postaq.bc.ConnectivityReceiver"
+            android:name=".bc.ConnectivityReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+
     </application>
 
 </manifest>

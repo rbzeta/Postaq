@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import app.rbzeta.postaq.R;
+import app.rbzeta.postaq.application.MyApplication;
 import app.rbzeta.postaq.bc.ConnectivityReceiver;
 import app.rbzeta.postaq.database.MyDBHandler;
 import app.rbzeta.postaq.helper.SessionManager;
@@ -21,11 +22,11 @@ import app.rbzeta.postaq.helper.UIHelper;
 import app.rbzeta.postaq.home.HomeActivity;
 import app.rbzeta.postaq.rest.ApiClient;
 import app.rbzeta.postaq.rest.ApiInterface;
-import app.rbzeta.postaq.rest.model.ResponseMessage;
-import app.rbzeta.postaq.rest.model.SendVerificationResponse;
-import app.rbzeta.postaq.rest.model.SignInResponse;
-import app.rbzeta.postaq.rest.model.User;
-import app.rbzeta.postaq.rest.model.UserForm;
+import app.rbzeta.postaq.rest.message.ResponseMessage;
+import app.rbzeta.postaq.rest.message.SendVerificationResponse;
+import app.rbzeta.postaq.rest.message.SignInResponse;
+import app.rbzeta.postaq.rest.message.User;
+import app.rbzeta.postaq.rest.message.UserForm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,12 +40,14 @@ public class VerifyCodeActivity extends AppCompatActivity {
     private String mVerificationCode;
     private String mUuid;
     private String mEmailAddress;
+    private MyDBHandler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_code);
 
+        mHandler = MyApplication.getInstance().getDBHandler();
         /*Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         anim.reset();
         LinearLayout iv = (LinearLayout) findViewById(R.id.frameVerifyAccount);
@@ -225,7 +228,6 @@ public class VerifyCodeActivity extends AppCompatActivity {
     }
 
     private void saveUserIntoLocalDatabase(User user) {
-        MyDBHandler mHandler = new MyDBHandler(getBaseContext());
         mHandler.deleteUserData();
         mHandler.saveUserData(user);
     }

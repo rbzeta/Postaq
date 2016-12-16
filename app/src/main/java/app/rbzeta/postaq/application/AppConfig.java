@@ -1,4 +1,4 @@
-package app.rbzeta.postaq.app;
+package app.rbzeta.postaq.application;
 
 /**
  * Created by Robyn on 03/10/2016.
@@ -23,6 +23,8 @@ public class AppConfig {
     public static final String SIGN_IN_AFTER_SIGN_UP_URL = "jakers/registration/ws_sign_in_after_sign_up.php";
     public static final String UPLOAD_IMAGE_URL = "jakers/ws/ws_upload_image_file.php";
     public static final String UPDATE_PROFILE_URL = "jakers/ws/ws_update_user_profile.php";
+    public static final String UPLOAD_POST_QUESTION_URL = "jakers/ws/ws_upload_question.php";
+    public static final String UPLOAD_IMAGE_POST_URL = "jakers/ws/ws_upload_image_post_file.php";
 
     public static final int ACCOUNT_STATUS_REGISTERED = 0;
     public static final int ACCOUNT_STATUS_ACTIVATED = 1;
@@ -60,8 +62,11 @@ public class AppConfig {
     public static final int TAB_PROFILE = 2;
     public static final int TYPE_ITEM = 111;
     public static final int TYPE_HEADER = 112;
+    public static final java.lang.String FORMAT_JPG = ".jpg";
     public static  String PREFIX_IMG_FILE_NAME = "Postaq_";
 
 
     public static long TIME_INTERVAL = 2000;
+    public static final int TYPE_IMAGE_POST = 1;
+    public static final int TYPE_TEXT_POST = 2;
 }

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import app.rbzeta.postaq.R;
-import app.rbzeta.postaq.rest.model.UserForm;
+import app.rbzeta.postaq.rest.message.UserForm;
 
 /**
  * Created by Robyn on 10/11/2016.

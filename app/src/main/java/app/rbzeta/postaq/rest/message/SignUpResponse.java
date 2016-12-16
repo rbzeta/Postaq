@@ -1,12 +1,12 @@
-package app.rbzeta.postaq.rest.model;
+package app.rbzeta.postaq.rest.message;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Robyn on 05/10/2016.
+ * Created by Robyn on 01/10/2016.
  */
 
-public class SignInResponse {
+public class SignUpResponse {
     @SerializedName("response_message")
     private ResponseMessage responseMessage;
 

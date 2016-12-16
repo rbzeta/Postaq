@@ -15,7 +15,9 @@ import java.util.List;
 
 import app.rbzeta.postaq.R;
 import app.rbzeta.postaq.adapter.PostQuestionAdapter;
-import app.rbzeta.postaq.model.PostQuestion;
+import app.rbzeta.postaq.application.MyApplication;
+import app.rbzeta.postaq.database.MyDBHandler;
+import app.rbzeta.postaq.model.Question;
 
 /**
  * Created by Robyn on 08/11/2016.
@@ -25,13 +27,101 @@ public class HomePostFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private List<PostQuestion> postQuestionList = new ArrayList<>();
+    private List<Question> postQuestionList = new ArrayList<>();
     private PostQuestionAdapter adapter;
+
+    private boolean isLoadQuestionFromServerSuccess;
+
+    private MyDBHandler dbHandler;
 
     public HomePostFragment instance(Bundle bundle){
         HomePostFragment frag = new HomePostFragment();
         frag.setArguments(bundle);
         return frag;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        dbHandler = MyApplication.getInstance().getDBHandler();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        
+        if (isLoadQuestionFromServerSuccess){
+            
+        }else{
+            loadQuestionFromDatabase();
+        }
+    }
+
+    private void loadQuestionFromDatabase() {
+        postQuestionList.clear();
+        List<Question> localQuestions = dbHandler.getQuestionList();
+
+        for(Question question: localQuestions){
+            postQuestionList.add(question);
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        postQuestionList = new ArrayList<>();
+        adapter = new PostQuestionAdapter(getContext(),postQuestionList);
+        recyclerView.setAdapter(adapter);
+
+        //loadDummyData();
+    }
+
+    private void loadDummyData() {
+        Question post = new Question();
+        post.setAvatarUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
+        post.setUserName("Robyn Ezio Eiji Bagus Seta");
+        post.setPostTime("Questioned at 7.15 PM");
+        post.setQuestion("Halaman error pada saat login LAS knp ya?");
+        post.setPostType(2);
+        post.setPictureUrl("");
+        post.setPostAnswer("Coba tutup browser kemudian buka kembali, login LAS kembali");
+        post.setAnswered(0);
+        post.setTotalAnswer("13 Answers");
+
+        Question post2 = new Question();
+        post2.setAvatarUrl("http://202.169.39.114/jakers/media/5816f5e2e8b255.83538496/profile_picture/Postaq_20161031_1502241524108315.jpg");
+        post2.setUserName("Paramitha Ayuningtyas");
+        post2.setPostTime("Questioned at 5.46 PM");
+        post2.setQuestion("Klo mau cleansing TID EDC BRilink alur prosesnya ada yang tau?");
+        post2.setPostType(2);
+        post2.setPictureUrl("");
+        post2.setPostAnswer("Ajukan ke bagian E-Channel dan TSI Kanwil aja mba");
+        post2.setAnswered(1);
+        post2.setTotalAnswer("2 Answers");
+        post2.setAvatarAnswerUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
+        post2.setUserNameAnswer("Robyn Ezio Eiji Bagus Seta");
+
+        Question post3 = new Question();
+        post3.setAvatarUrl("http://202.169.39.114/jakers/media/5809ad207270e2.64152542/profile_picture/IMG_20161021_1317521217148072.jpg");
+        post3.setUserName("Kristall Bawono");
+        post3.setPostTime("Questioned at 9.52 PM");
+        post3.setQuestion("Ada yang tau knp error saat login bristars seperti gambar ini?");
+        post3.setPostType(1);
+        post3.setPictureUrl("http://202.169.39.114/jakers/media/error_sample.png");
+        post3.setPostAnswer("Belum terdaftar di BRIHC, minta sama admin cabang aja");
+        post3.setAnswered(1);
+        post3.setTotalAnswer("6 Answers");
+        post3.setAvatarAnswerUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
+        post3.setUserNameAnswer("Robyn Ezio Eiji Bagus Seta");
+
+        postQuestionList.add(post);
+        postQuestionList.add(post2);
+        postQuestionList.add(post3);
+
+
+        adapter.notifyDataSetChanged();
     }
 
     @Nullable
@@ -50,51 +140,13 @@ public class HomePostFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        postQuestionList = new ArrayList<>();
-        adapter = new PostQuestionAdapter(getContext(),postQuestionList);
-        recyclerView.setAdapter(adapter);
-        PostQuestion post = new PostQuestion();
-        post.setAvatarUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
-        post.setUserName("Robyn Ezio Eiji Bagus Seta");
-        post.setPostTime("Questioned at 7.15 PM");
-        post.setPostText("Halaman error pada saat login LAS knp ya?");
-        post.setPostType(2);
-        post.setPostImageUrl("");
-        post.setPostAnswer("Coba tutup browser kemudian buka kembali, login LAS kembali");
-        post.setAnswered(false);
-        post.setTotalAnswer("13 Answers");
+    }
 
-        PostQuestion post2 = new PostQuestion();
-        post2.setAvatarUrl("http://202.169.39.114/jakers/media/5816f5e2e8b255.83538496/profile_picture/Postaq_20161031_1502241524108315.jpg");
-        post2.setUserName("Paramitha Ayuningtyas");
-        post2.setPostTime("Questioned at 5.46 PM");
-        post2.setPostText("Klo mau cleansing TID EDC BRilink alur prosesnya ada yang tau?");
-        post2.setPostType(2);
-        post2.setPostImageUrl("");
-        post2.setPostAnswer("Ajukan ke bagian E-Channel dan TSI Kanwil aja mba");
-        post2.setAnswered(true);
-        post2.setTotalAnswer("2 Answers");
-        post2.setAvatarAnswerUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
-        post2.setUserNameAnswer("Robyn Ezio Eiji Bagus Seta");
+    public void onSuccessPostQuestion(Question question){
+        postQuestionList.add(0,question);
+        adapter.notifyItemInserted(0);
+        //adapter.notifyItemRangeInserted(0,adapter.getItemCount());
+        recyclerView.scrollToPosition(0);
 
-        PostQuestion post3 = new PostQuestion();
-        post3.setAvatarUrl("http://202.169.39.114/jakers/media/5809ad207270e2.64152542/profile_picture/IMG_20161021_1317521217148072.jpg");
-        post3.setUserName("Kristall Bawono");
-        post3.setPostTime("Questioned at 9.52 PM");
-        post3.setPostText("Ada yang tau knp error saat login bristars seperti gambar ini?");
-        post3.setPostType(1);
-        post3.setPostImageUrl("http://202.169.39.114/jakers/media/error_sample.png");
-        post3.setPostAnswer("Belum terdaftar di BRIHC, minta sama admin cabang aja");
-        post3.setAnswered(true);
-        post3.setTotalAnswer("6 Answers");
-        post3.setAvatarAnswerUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
-        post3.setUserNameAnswer("Robyn Ezio Eiji Bagus Seta");
-
-        postQuestionList.add(post);
-        postQuestionList.add(post2);
-        postQuestionList.add(post3);
-
-
-        adapter.notifyDataSetChanged();
     }
 }

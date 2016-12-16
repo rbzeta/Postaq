@@ -1,6 +1,6 @@
 package app.rbzeta.postaq.rest;
 
-import app.rbzeta.postaq.app.AppConfig;
+import app.rbzeta.postaq.application.AppConfig;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

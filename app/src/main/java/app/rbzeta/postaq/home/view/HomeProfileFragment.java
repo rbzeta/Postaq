@@ -19,7 +19,7 @@ import app.rbzeta.postaq.R;
 import app.rbzeta.postaq.adapter.PostProfileAdapter;
 import app.rbzeta.postaq.listener.RecyclerTouchListener;
 import app.rbzeta.postaq.model.ProfileHeader;
-import app.rbzeta.postaq.rest.model.UserForm;
+import app.rbzeta.postaq.rest.message.UserForm;
 
 /**
  * Created by Robyn on 08/11/2016.

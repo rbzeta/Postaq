@@ -42,7 +42,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.rbzeta.postaq.R;
-import app.rbzeta.postaq.app.AppConfig;
+import app.rbzeta.postaq.application.AppConfig;
+import app.rbzeta.postaq.application.MyApplication;
 import app.rbzeta.postaq.custom.CircleTransform;
 import app.rbzeta.postaq.database.MyDBHandler;
 import app.rbzeta.postaq.dialog.EditTextDialogFragment;
@@ -51,11 +52,11 @@ import app.rbzeta.postaq.helper.SessionManager;
 import app.rbzeta.postaq.helper.UIHelper;
 import app.rbzeta.postaq.rest.ApiClient;
 import app.rbzeta.postaq.rest.ApiInterface;
-import app.rbzeta.postaq.rest.model.FileProperties;
-import app.rbzeta.postaq.rest.model.FileUploadResponseMessage;
-import app.rbzeta.postaq.rest.model.ResponseMessage;
-import app.rbzeta.postaq.rest.model.User;
-import app.rbzeta.postaq.rest.model.UserProfileResponseMessage;
+import app.rbzeta.postaq.rest.message.FileProperties;
+import app.rbzeta.postaq.rest.message.FileUploadResponseMessage;
+import app.rbzeta.postaq.rest.message.ResponseMessage;
+import app.rbzeta.postaq.rest.message.User;
+import app.rbzeta.postaq.rest.message.UserProfileResponseMessage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -99,6 +100,7 @@ public class UserProfileSettingsActivity extends AppCompatActivity
     private String mNewPhoneValue;
     private String mNewEmployeeIdValue;
     private String mNewBranchIdValue;
+    private MyDBHandler mHandler;
 
     protected void setStatusBarTranslucent(boolean makeTranslucent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -115,6 +117,7 @@ public class UserProfileSettingsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile_settings);
         permissionHelper= new PermissionHelper(this);
+        mHandler = MyApplication.getInstance().getDBHandler();
 
         setStatusBarTranslucent(true);
 
@@ -1008,7 +1011,6 @@ public class UserProfileSettingsActivity extends AppCompatActivity
     }
 
     private void saveUserIntoLocalDatabase(User user) {
-        MyDBHandler mHandler = new MyDBHandler(getBaseContext());
         mHandler.deleteUserData();
         mHandler.saveUserData(user);
     }

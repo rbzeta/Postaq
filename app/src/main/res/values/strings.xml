@@ -98,6 +98,7 @@
     <string name="dialog_title_error_upload_profile_picture">Image Upload Failed</string>
     <string name="dialog_msg_error_upload_profile_picture">Failed to update profile picture, please try again.</string>
     <string name="text_msg_change_avatar_success">Your profile picture has been updated</string>
+    <string name="text_msg_upload_post_success">Your question has been posted</string>
     <string name="txt_title_save_changes">Saving changes</string>
     <string name="dialog_title_error_save_user_profile">Save Failed</string>
     <string name="dialog_msg_error_save_user_profile">Failed to save user profile</string>
@@ -220,4 +221,8 @@
     <string name="button_text_ask_question">POST</string>
     <string name="dialog_msg_discard_post_confirmation">Do you want to discard this question?</string>
     <string name="no">No</string>
+    <string name="txt_title_upload_question">Posting Question</string>
+    <string name="dialog_title_error_upload_question">Upload Failed</string>
+    <string name="dialog_msg_error_upload_question">Something went wrong, failed to post question.</string>
+    <string name="text_your_answer">Your Answer</string>
 </resources>

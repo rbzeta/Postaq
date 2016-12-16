@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import app.rbzeta.postaq.application.AppConfig;
 import app.rbzeta.postaq.model.Question;
 import app.rbzeta.postaq.rest.message.FileUploadResponseMessage;
+import app.rbzeta.postaq.rest.message.QuestionResponseMessage;
 import app.rbzeta.postaq.rest.message.SendEmailPasswordResponse;
 import app.rbzeta.postaq.rest.message.SendVerificationResponse;
 import app.rbzeta.postaq.rest.message.SignInResponse;
@@ -19,13 +20,13 @@ import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import rx.Observable;
 
 /**
- * Created by Robyn on 01/10/2016.
+ * Created by Robyn on 11/29/2016.
  */
 
-public interface ApiInterface {
-
+public interface NetworkApi {
     @POST(AppConfig.SIGN_UP_URL)
     Call<SignUpResponse> signUpProcess(@Body UserForm form);
 
@@ -46,10 +47,15 @@ public interface ApiInterface {
     @POST(AppConfig.UPLOAD_IMAGE_URL)
     Call<FileUploadResponseMessage> uploadImageToServer(@Part MultipartBody.Part image, @Part("uuid") RequestBody uuid);
 
+    @Multipart
+    @POST(AppConfig.UPLOAD_IMAGE_POST_URL)
+    Observable<FileUploadResponseMessage> uploadImagePostToServer(@Part MultipartBody.Part image, @Part("uuid") RequestBody uuid);
+
     @POST(AppConfig.UPDATE_PROFILE_URL)
     Call<UserProfileResponseMessage> updateUserProfile(@Body User user);
 
     @Multipart
     @POST(AppConfig.UPLOAD_POST_QUESTION_URL)
-    Call<FileUploadResponseMessage> uploadPostQuestion(@Nullable @Part MultipartBody.Part image, @Part("uuid") RequestBody uuid, @Part("question") Question post);
+    Observable<QuestionResponseMessage> uploadPostQuestion(@Nullable @Part MultipartBody.Part image, @Part("uuid") RequestBody uuid, @Part("question") Question post);
+
 }

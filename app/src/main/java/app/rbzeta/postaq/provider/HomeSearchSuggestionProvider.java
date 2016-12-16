@@ -2,7 +2,7 @@ package app.rbzeta.postaq.provider;
 
 import android.content.SearchRecentSuggestionsProvider;
 
-import app.rbzeta.postaq.app.AppConfig;
+import app.rbzeta.postaq.application.AppConfig;
 
 /**
  * Created by Robyn on 29/10/2016.

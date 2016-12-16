@@ -20,9 +20,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 
 import app.rbzeta.postaq.R;
+import app.rbzeta.postaq.application.MyApplication;
 import app.rbzeta.postaq.custom.CircleTransform;
+import app.rbzeta.postaq.helper.SessionManager;
 import app.rbzeta.postaq.helper.UIHelper;
-import app.rbzeta.postaq.model.PostQuestion;
+import app.rbzeta.postaq.model.Question;
 
 /**
  * Created by Robyn on 25/10/2016.
@@ -30,14 +32,16 @@ import app.rbzeta.postaq.model.PostQuestion;
 
 public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapter.MyViewHolder> {
 
-    private List<PostQuestion> mPostList;
+    private List<Question> mPostList;
     private Context mContext;
     private static final int TYPE_IMAGE_POST = 1;
     private static final int TYPE_TEXT_POST = 2;
+    private SessionManager session;
 
-    public PostQuestionAdapter(Context context,List<PostQuestion> postList) {
+    public PostQuestionAdapter(Context context,List<Question> postList) {
         mContext = context;
         mPostList = postList;
+        session = MyApplication.getInstance().getSessionManager();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -128,7 +132,7 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        PostQuestion postItem = mPostList.get(position);
+        Question postItem = mPostList.get(position);
 
         if (postItem.getAvatarUrl() == null) {
             Glide.with(mContext).load(R.drawable.img_user_profile_default)
@@ -148,20 +152,18 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(holder.postAvatar);
 
-        if(postItem.getPostType() == TYPE_IMAGE_POST){
+        if(postItem.getPictureUrl() != null){
             holder.postImage.setVisibility(View.VISIBLE);
-            Glide.with(mContext).load(postItem.getPostImageUrl())
+            Glide.with(mContext).load(postItem.getPictureUrl())
                     .crossFade()
                     .thumbnail(0.2f)
-                    .centerCrop()
+                    .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(holder.postImage);
-        }else if(postItem.getPostType() == TYPE_TEXT_POST) {
-            holder.postImage.setVisibility(View.GONE);
         }else holder.postImage.setVisibility(View.GONE);
 
         String isAnswered = mContext.getString(R.string.text_unanswered);
-        if(postItem.isAnswered()){
+        if(postItem.isAnswered() == 1){
             isAnswered = mContext.getString(R.string.text_answered);
             if (postItem.getAvatarAnswerUrl() == null) {
                 Glide.with(mContext).load(R.drawable.img_user_profile_default)
@@ -189,10 +191,14 @@ public class PostQuestionAdapter extends RecyclerView.Adapter<PostQuestionAdapte
 
         }
         holder.textPostIsAnswered.setText(isAnswered);
-        holder.textPostTime.setText(postItem.getPostTime());
+        holder.textPostTime.setText("Questioned at "+postItem.getPostTime());
         holder.textPostAnswerCount.setText(postItem.getTotalAnswer());
         holder.textPostUserName.setText(postItem.getUserName());
-        holder.textPostQuestion.setText(postItem.getPostText());
+        holder.textPostQuestion.setText(postItem.getQuestion());
+
+        if(!postItem.getUuid().equals(session.getUserUuid()) ){
+            holder.overflow.setVisibility(View.GONE);
+        }
     }
 
     private void showPopupMenu(View view, int position) {

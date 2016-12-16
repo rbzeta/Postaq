@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.rbzeta.postaq.R;
+import app.rbzeta.postaq.application.MyApplication;
 import app.rbzeta.postaq.bc.ConnectivityReceiver;
 import app.rbzeta.postaq.database.MyDBHandler;
 import app.rbzeta.postaq.helper.PermissionHelper;
@@ -44,10 +45,10 @@ import app.rbzeta.postaq.helper.ValidationHelper;
 import app.rbzeta.postaq.home.HomeActivity;
 import app.rbzeta.postaq.rest.ApiClient;
 import app.rbzeta.postaq.rest.ApiInterface;
-import app.rbzeta.postaq.rest.model.ResponseMessage;
-import app.rbzeta.postaq.rest.model.SignInResponse;
-import app.rbzeta.postaq.rest.model.User;
-import app.rbzeta.postaq.rest.model.UserForm;
+import app.rbzeta.postaq.rest.message.ResponseMessage;
+import app.rbzeta.postaq.rest.message.SignInResponse;
+import app.rbzeta.postaq.rest.message.User;
+import app.rbzeta.postaq.rest.message.UserForm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private PermissionHelper permissionHelper;
+    private MyDBHandler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
 
         permissionHelper= new PermissionHelper(this);
+        mHandler = MyApplication.getInstance().getDBHandler();
 
         TextView mTextLogo = (TextView)findViewById(R.id.textAppLogo);
         Typeface mFace = Typeface.createFromAsset(getAssets(),getString(R.string.font_path_actonia));
@@ -267,7 +270,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void saveUserIntoLocalDatabase(User user) {
-        MyDBHandler mHandler = new MyDBHandler(getBaseContext());
         mHandler.deleteUserData();
         mHandler.saveUserData(user);
     }

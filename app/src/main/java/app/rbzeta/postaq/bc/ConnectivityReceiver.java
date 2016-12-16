@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import app.rbzeta.postaq.app.MyApplication;
+import app.rbzeta.postaq.application.MyApplication;
 
 /**
  * Created by Robyn on 30/09/2016.
