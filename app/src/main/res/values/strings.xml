@@ -220,9 +220,18 @@
     <string name="text_user_name_sample">User Name</string>
     <string name="button_text_ask_question">POST</string>
     <string name="dialog_msg_discard_post_confirmation">Do you want to discard this question?</string>
+    <string name="dialog_msg_discard_answer_confirmation">Do you want to discard this answer?</string>
     <string name="no">No</string>
     <string name="txt_title_upload_question">Posting Question</string>
     <string name="dialog_title_error_upload_question">Upload Failed</string>
     <string name="dialog_msg_error_upload_question">Something went wrong, failed to post question.</string>
     <string name="text_your_answer">Your Answer</string>
+    <string name="hint_write_answer_here">Write your answer here ...</string>
+    <string name="dialog_title_error_upload_answer">Upload Failed</string>
+    <string name="dialog_msg_error_upload_answer" >Something went wrong, failed to upload answer.</string>
+    <string name="txt_title_upload_answer">Uploading Answer</string>
+    <string name="dialog_title_error_fetch_question">Failed</string>
+    <string name="dialog_msg_error_fetch_question" >Something went wrong, failed to get question.</string>
+    <string name="dialog_msg_error_fetch_answer">Something went wrong, failed to get answer.</string>
+    <string name="dialog_msg_mark_answer_as_favorite">Do you want to mark this as an answer?</string>
 </resources>

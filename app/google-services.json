@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "46585508683-20ckcmb0bjp96gh525n5gqibbeu6knu1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.rbzeta.postaq",
+            "certificate_hash": "47927F2C948AE231C758576F136D9661926E7A70"
+          }
+        },
+        {
           "client_id": "46585508683-ort2kvdbgt87mou1j4ju53ureucalumn.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46585508683-ort2kvdbgt87mou1j4ju53ureucalumn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

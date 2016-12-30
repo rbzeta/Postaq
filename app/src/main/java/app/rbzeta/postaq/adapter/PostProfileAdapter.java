@@ -40,12 +40,12 @@ public class PostProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_ITEM) {
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.post_item, parent, false);
+                    .inflate(R.layout.item_question, parent, false);
 
             return new MyViewHolder(itemView);
         }else{
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.header_profile_item, parent, false);
+                    .inflate(R.layout.item_header_profile, parent, false);
 
             return new HeaderView(itemView);
         }

@@ -115,7 +115,8 @@ public class HomeActivity extends AppCompatActivity
                             View fragmentView = f.getView();
                             RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.homeRecycleView);
                             if (mRecyclerView != null) {
-                                mRecyclerView.smoothScrollToPosition(0);
+                                //mRecyclerView.smoothScrollToPosition(0);
+                                mRecyclerView.scrollToPosition(0);
                                 fab.show();
                             }
                         }
@@ -126,14 +127,11 @@ public class HomeActivity extends AppCompatActivity
 
 
             fab = (FloatingActionButton) findViewById(R.id.fabUserProfilePhoto);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //show fragment new post
-                    NewPostFragment fragment = new NewPostFragment();
-                    fragment.show(getSupportFragmentManager(),"fragment_new_post");
+            fab.setOnClickListener(view -> {
+                //show fragment new post
+                NewPostFragment fragment = new NewPostFragment();
+                fragment.show(getSupportFragmentManager(),"fragment_new_post");
 
-                }
             });
 
             drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -144,7 +142,7 @@ public class HomeActivity extends AppCompatActivity
 
             mDrawerToggle = new SmoothActionBarDrawerToggle(this, drawer, toolbar,
                     R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(mDrawerToggle);
+            drawer.addDrawerListener(mDrawerToggle);
             mDrawerToggle.setDrawerIndicatorEnabled(true);
             mDrawerToggle.syncState();
 
@@ -244,7 +242,7 @@ public class HomeActivity extends AppCompatActivity
             }
             else UIHelper.showToastLong(getBaseContext(),getResources()
                     .getString(R.string.msg_back_btn_exit));
-            mBackPressed = System.currentTimeMillis();;
+            mBackPressed = System.currentTimeMillis();
         }
 
 
@@ -274,19 +272,14 @@ public class HomeActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
 
         switch (id){
             case R.id.nav_logout: logoutAttempt();break;
             case R.id.nav_profile_settings: {
-                mDrawerToggle.runWhenIdle(new Runnable() {
-                    @Override
-                    public void run() {
-                        showProfileActivity();
-                    }
-                });
+                mDrawerToggle.runWhenIdle(() -> showProfileActivity());
             }
                 drawer.closeDrawers();
                 break;
@@ -311,18 +304,8 @@ public class HomeActivity extends AppCompatActivity
         builder.setMessage(getString(R.string.msg_dialog_logout));
 
         builder.setPositiveButton(getString(R.string.action_ok),
-                new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                logoutProcess();
-            }
-        });
-        builder.setNegativeButton(getString(R.string.action_cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+                (dialog, which) -> logoutProcess());
+        builder.setNegativeButton(getString(R.string.action_cancel), (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -345,8 +328,8 @@ public class HomeActivity extends AppCompatActivity
         //retrofit service for logging out user on server
     }
 
-    private void showSettingsLayout() {
-    }
+    /*private void showSettingsLayout() {
+    }*/
 
     @Override
     public void onSuccessPostQuestion(Question question) {
@@ -362,7 +345,7 @@ public class HomeActivity extends AppCompatActivity
 
         private Runnable runnable;
 
-        public SmoothActionBarDrawerToggle(AppCompatActivity activity, DrawerLayout drawerLayout,
+        private SmoothActionBarDrawerToggle(AppCompatActivity activity, DrawerLayout drawerLayout,
                                            Toolbar toolbar, int openDrawerContentDescRes,
                                            int closeDrawerContentDescRes) {
             super(activity, drawerLayout, toolbar, openDrawerContentDescRes, closeDrawerContentDescRes);
@@ -387,7 +370,7 @@ public class HomeActivity extends AppCompatActivity
             }
         }
 
-        public void runWhenIdle(Runnable runnable) {
+        private void runWhenIdle(Runnable runnable) {
             this.runnable = runnable;
         }
     }

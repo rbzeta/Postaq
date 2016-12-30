@@ -66,6 +66,14 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(JakersContract.Question.COLUMN_TOTAL_ANSWER,question.getTotalAnswer());
         values.put(JakersContract.Question.COLUMN_USER_NAME,question.getUserName());
         values.put(JakersContract.Question.COLUMN_USER_AVATAR_URL,question.getAvatarUrl());
+        values.put(JakersContract.Question.COLUMN_ANSWER_ID,question.getAnswerId());
+        values.put(JakersContract.Question.COLUMN_ANSWER,question.getAnswer());
+        values.put(JakersContract.Question.COLUMN_ANSWER_USER_NAME,question.getAnswerUserName());
+        values.put(JakersContract.Question.COLUMN_ANSWER_USER_PROFILE_PIC,question.getAnswerUserProfilePicture());
+        values.put(JakersContract.Question.COLUMN_LAST_ANSWER_ID,question.getLastAnswerId());
+        values.put(JakersContract.Question.COLUMN_LAST_ANSWER,question.getLastAnswer());
+        values.put(JakersContract.Question.COLUMN_LAST_ANSWER_USER_NAME,question.getLastAnswerUserName());
+        values.put(JakersContract.Question.COLUMN_LAST_ANSWER_USER_PROFILE_PIC,question.getLastAnswerUserProfilePicture());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -101,7 +109,15 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 JakersContract.Question.COLUMN_POST_TIME,
                 JakersContract.Question.COLUMN_TOTAL_ANSWER,
                 JakersContract.Question.COLUMN_USER_NAME,
-                JakersContract.Question.COLUMN_USER_AVATAR_URL
+                JakersContract.Question.COLUMN_USER_AVATAR_URL,
+                JakersContract.Question.COLUMN_ANSWER_ID,
+                JakersContract.Question.COLUMN_ANSWER,
+                JakersContract.Question.COLUMN_ANSWER_USER_NAME,
+                JakersContract.Question.COLUMN_ANSWER_USER_PROFILE_PIC,
+                JakersContract.Question.COLUMN_LAST_ANSWER_ID,
+                JakersContract.Question.COLUMN_LAST_ANSWER,
+                JakersContract.Question.COLUMN_LAST_ANSWER_USER_NAME,
+                JakersContract.Question.COLUMN_LAST_ANSWER_USER_PROFILE_PIC,
         };
 
         String selection = JakersContract.Question._ID + " = ?";
@@ -137,6 +153,14 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 question.setTotalAnswer(c.getString(12));
                 question.setUserName(c.getString(13));
                 question.setAvatarUrl(c.getString(14));
+                question.setAnswerId(c.getString(15));
+                question.setAnswer(c.getString(16));
+                question.setAnswerUserName(c.getString(17));
+                question.setAnswerUserProfilePicture(c.getString(18));
+                question.setLastAnswerId(c.getString(19));
+                question.setLastAnswer(c.getString(20));
+                question.setLastAnswerUserName(c.getString(21));
+                question.setLastAnswerUserProfilePicture(c.getString(22));
                 listContact.add(question);
             }
 

@@ -28,10 +28,11 @@
                 android:id="@+id/container_post_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/background_transparent_border_bottom">
 
                 <ImageView
-                    android:id="@+id/img_new_post_avatar"
+                    android:id="@+id/img_answer_avatar"
                     android:layout_width="@dimen/post_avatar_width"
                     android:layout_height="@dimen/post_avatar_height"
                     android:layout_margin="@dimen/post_avatar_margin"
@@ -49,7 +50,7 @@
                     tools:ignore="UselessParent">
 
                     <TextView
-                        android:id="@+id/text_new_post_user_name"
+                        android:id="@+id/text_answer_user_name"
                         style="@style/TextAppearance.AppCompat.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -62,6 +63,13 @@
                 </RelativeLayout>
             </LinearLayout>
 
+            <ProgressBar
+                android:id="@+id/progress_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Small.Title"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/activity_vertical_margin"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_answer"
                 android:layout_width="match_parent"
@@ -76,28 +84,34 @@
     <LinearLayout
         android:id="@+id/container_new_post_button_ask"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/button_transparent_border_top"
         android:fitsSystemWindows="true"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/button_new_post_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/transparent_background"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_add_a_photo_black_24dp"
-            tools:ignore="ContentDescription" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/activity_vertical_margin">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:inputType="textMultiLine|textCapSentences"
+                android:scrollbars="vertical"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:ems="10"
+                android:id="@+id/edit_answer_question"
+                android:hint="@string/hint_write_answer_here"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/button_submit_answer"/>
 
             <Button
-                android:id="@+id/button_new_post_ask_question"
+                android:id="@+id/button_submit_answer"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"

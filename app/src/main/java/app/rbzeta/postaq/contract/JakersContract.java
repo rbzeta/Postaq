@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  */
 
 public class JakersContract {
-    public static final  int    DATABASE_VERSION   = 6;
+    public static final  int    DATABASE_VERSION   = 7;
     public static final  String DATABASE_NAME      = "postaq.db";
     private static final String TEXT_TYPE          = " TEXT";
     private static final String COMMA_SEP          = ",";
@@ -73,6 +73,15 @@ public class JakersContract {
         public static final String COLUMN_TOTAL_ANSWER = "total_answer";
         public static final String COLUMN_USER_NAME = "name";
         public static final String COLUMN_USER_AVATAR_URL = "profile_picture_url";
+        public static final String COLUMN_ANSWER = "answer";
+        public static final String COLUMN_ANSWER_USER_PROFILE_PIC = "answer_user_profile_picture";
+        public static final String COLUMN_ANSWER_USER_NAME = "answer_user_name";
+        public static final String COLUMN_ANSWER_ID = "answer_id";
+        public static final String COLUMN_LAST_ANSWER_ID = "last_answer_id";
+        public static final String COLUMN_LAST_ANSWER = "last_answer";
+        public static final String COLUMN_LAST_ANSWER_USER_PROFILE_PIC = "last_answer_user_profile_picture";
+        public static final String COLUMN_LAST_ANSWER_USER_NAME = "last_answer_user_name";
+
 
         public static final String CREATE_TABLE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
@@ -90,6 +99,14 @@ public class JakersContract {
                         COLUMN_TOTAL_ANSWER + TEXT_TYPE + COMMA_SEP +
                         COLUMN_USER_NAME + TEXT_TYPE + COMMA_SEP +
                         COLUMN_USER_AVATAR_URL + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_ANSWER + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_ANSWER_USER_PROFILE_PIC + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_ANSWER_USER_NAME + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_ANSWER_ID + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_LAST_ANSWER_ID + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_LAST_ANSWER + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_LAST_ANSWER_USER_PROFILE_PIC + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_LAST_ANSWER_USER_NAME + TEXT_TYPE + COMMA_SEP +
                         COLUMN_STATUS + " INTEGER " + " )";
 
         public static final String DELETE_TABLE =

@@ -1,12 +1,15 @@
 package app.rbzeta.postaq.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Robyn on 11/17/2016.
  */
 
-public class Question {
+public class Question implements Parcelable {
     @SerializedName("id")
     private int id;
     @SerializedName("uuid")
@@ -35,13 +38,110 @@ public class Question {
     private String postTime;
     @SerializedName("total_answer")
     private String totalAnswer;
+    @SerializedName("answer")
+    private String answer;
+    @SerializedName("answer_user_profile_picture")
+    private String answerUserProfilePicture;
+    @SerializedName("answer_user_name")
+    private String answerUserName;
+    @SerializedName("answer_id")
+    private String answerId;
+    @SerializedName("last_answer_id")
+    private String lastAnswerId;
+    @SerializedName("last_answer")
+    private String lastAnswer;
+    @SerializedName("last_answer_user_profile_picture")
+    private String lastAnswerUserProfilePicture;
+    @SerializedName("last_answer_user_name")
+    private String lastAnswerUserName;
+
+    
 
 
     private int postType;
 
-    private String postAnswer;
-    private String avatarAnswerUrl;
-    private String userNameAnswer;
+    public Question() {
+
+    }
+
+
+    protected Question(Parcel in) {
+        id = in.readInt();
+        uuid = in.readString();
+        question = in.readString();
+        pictureUrl = in.readString();
+        isAnswered = in.readInt();
+        status = in.readInt();
+        createDt = in.readString();
+        updateDt = in.readString();
+        createUsr = in.readString();
+        updateUsr = in.readString();
+        avatarUrl = in.readString();
+        userName = in.readString();
+        postTime = in.readString();
+        totalAnswer = in.readString();
+        answer = in.readString();
+        answerUserProfilePicture = in.readString();
+        answerUserName = in.readString();
+        answerId = in.readString();
+        lastAnswer = in.readString();
+        lastAnswerId = in.readString();
+        lastAnswerUserProfilePicture = in.readString();
+        lastAnswerUserName = in.readString();
+        postType = in.readInt();
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
+    public String getLastAnswer() {
+        return lastAnswer;
+    }
+
+    public void setLastAnswer(String lastAnswer) {
+        this.lastAnswer = lastAnswer;
+    }
+
+    public String getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(String answerId) {
+        this.answerId = answerId;
+    }
+
+    public String getLastAnswerId() {
+        return lastAnswerId;
+    }
+
+    public void setLastAnswerId(String lastAnswerId) {
+        this.lastAnswerId = lastAnswerId;
+    }
+
+    public String getLastAnswerUserProfilePicture() {
+        return lastAnswerUserProfilePicture;
+    }
+
+    public void setLastAnswerUserProfilePicture(String lastAnswerUserProfilePicture) {
+        this.lastAnswerUserProfilePicture = lastAnswerUserProfilePicture;
+    }
+
+    public String getLastAnswerUserName() {
+        return lastAnswerUserName;
+    }
+
+    public void setLastAnswerUserName(String lastAnswerUserName) {
+        this.lastAnswerUserName = lastAnswerUserName;
+    }
 
     public int getStatus() {
         return status;
@@ -91,20 +191,20 @@ public class Question {
         this.uuid = uuid;
     }
 
-    public String getAvatarAnswerUrl() {
-        return avatarAnswerUrl;
+    public String getAnswerUserProfilePicture() {
+        return answerUserProfilePicture;
     }
 
-    public void setAvatarAnswerUrl(String avatarAnswerUrl) {
-        this.avatarAnswerUrl = avatarAnswerUrl;
+    public void setAnswerUserProfilePicture(String answerUserProfilePicture) {
+        this.answerUserProfilePicture = answerUserProfilePicture;
     }
 
-    public String getUserNameAnswer() {
-        return userNameAnswer;
+    public String getAnswerUserName() {
+        return answerUserName;
     }
 
-    public void setUserNameAnswer(String userNameAnswer) {
-        this.userNameAnswer = userNameAnswer;
+    public void setAnswerUserName(String answerUserName) {
+        this.answerUserName = answerUserName;
     }
 
     public int getId() {
@@ -179,11 +279,43 @@ public class Question {
         isAnswered = answered;
     }
 
-    public String getPostAnswer() {
-        return postAnswer;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setPostAnswer(String postAnswer) {
-        this.postAnswer = postAnswer;
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(uuid);
+        parcel.writeString(question);
+        parcel.writeString(pictureUrl);
+        parcel.writeInt(isAnswered);
+        parcel.writeInt(status);
+        parcel.writeString(createDt);
+        parcel.writeString(updateDt);
+        parcel.writeString(createUsr);
+        parcel.writeString(updateUsr);
+        parcel.writeString(avatarUrl);
+        parcel.writeString(userName);
+        parcel.writeString(postTime);
+        parcel.writeString(totalAnswer);
+        parcel.writeString(answer);
+        parcel.writeString(answerUserProfilePicture);
+        parcel.writeString(answerUserName);
+        parcel.writeString(answerId);
+        parcel.writeString(lastAnswerId);
+        parcel.writeString(lastAnswer);
+        parcel.writeString(lastAnswerUserProfilePicture);
+        parcel.writeString(lastAnswerUserName);
+        parcel.writeInt(postType);
     }
 }

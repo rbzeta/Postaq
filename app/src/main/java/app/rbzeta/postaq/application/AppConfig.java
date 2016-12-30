@@ -25,6 +25,12 @@ public class AppConfig {
     public static final String UPDATE_PROFILE_URL = "jakers/ws/ws_update_user_profile.php";
     public static final String UPLOAD_POST_QUESTION_URL = "jakers/ws/ws_upload_question.php";
     public static final String UPLOAD_IMAGE_POST_URL = "jakers/ws/ws_upload_image_post_file.php";
+    public static final String UPLOAD_ANSWER_URL = "jakers/ws/ws_upload_answer.php";
+    public static final String GET_QUESTION_LIST_URL = "jakers/ws/ws_get_question_list.php";
+    public static final String GET_ANSWER_LIST_URL = "jakers/ws/ws_get_answer_list.php";
+
+
+
 
     public static final int ACCOUNT_STATUS_REGISTERED = 0;
     public static final int ACCOUNT_STATUS_ACTIVATED = 1;

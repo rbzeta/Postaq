@@ -3,7 +3,9 @@ package app.rbzeta.postaq.rest;
 import android.support.annotation.Nullable;
 
 import app.rbzeta.postaq.application.AppConfig;
+import app.rbzeta.postaq.model.Answer;
 import app.rbzeta.postaq.model.Question;
+import app.rbzeta.postaq.rest.message.AnswerResponseMessage;
 import app.rbzeta.postaq.rest.message.FileUploadResponseMessage;
 import app.rbzeta.postaq.rest.message.QuestionResponseMessage;
 import app.rbzeta.postaq.rest.message.SendEmailPasswordResponse;
@@ -17,9 +19,11 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -57,5 +61,14 @@ public interface NetworkApi {
     @Multipart
     @POST(AppConfig.UPLOAD_POST_QUESTION_URL)
     Observable<QuestionResponseMessage> uploadPostQuestion(@Nullable @Part MultipartBody.Part image, @Part("uuid") RequestBody uuid, @Part("question") Question post);
+
+    @POST(AppConfig.UPLOAD_ANSWER_URL)
+    Observable<AnswerResponseMessage> uploadAnswerQuestion(@Body Answer answer);
+
+    @GET(AppConfig.GET_QUESTION_LIST_URL)
+    Observable<QuestionResponseMessage> getQuestionListFromServer(@Query("page") int page);
+
+    @GET(AppConfig.GET_ANSWER_LIST_URL)
+    Observable<AnswerResponseMessage> getAnswerListFromServer(@Query("page") int page,@Query("id") int id);
 
 }

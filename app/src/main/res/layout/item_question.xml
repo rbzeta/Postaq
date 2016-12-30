@@ -172,7 +172,7 @@
                 <TextView
                     android:id="@+id/text_post_user_name_answer"
                     style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/ic_post_overflow_width"
                     android:ellipsize="end"
@@ -184,7 +184,7 @@
                 <TextView
                     android:id="@+id/text_post_answer"
                     style="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:ellipsize="end"
@@ -209,7 +209,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:background="@drawable/transparent_background"
+                android:background="@drawable/background_transparent"
                 android:drawablePadding="@dimen/post_card_margin"
                 android:drawableStart="@drawable/ic_question_answer_black_24dp"
                 android:text="@string/button_text_answer"

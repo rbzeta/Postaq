@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|end"
-                            android:background="@drawable/transparent_background"
+                            android:background="@drawable/background_transparent"
                             android:layout_margin="@dimen/text_top_bottom_margin"
                             android:src="@android:drawable/ic_menu_close_clear_cancel"
                             tools:ignore="ContentDescription" />
@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/transparent_background"
+            android:background="@drawable/background_transparent"
             android:padding="@dimen/activity_horizontal_margin"
             android:src="@drawable/ic_add_a_photo_black_24dp"
             tools:ignore="ContentDescription" />

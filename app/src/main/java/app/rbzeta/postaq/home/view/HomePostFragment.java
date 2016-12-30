@@ -1,8 +1,11 @@
 package app.rbzeta.postaq.home.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,24 +20,40 @@ import app.rbzeta.postaq.R;
 import app.rbzeta.postaq.adapter.PostQuestionAdapter;
 import app.rbzeta.postaq.application.MyApplication;
 import app.rbzeta.postaq.database.MyDBHandler;
+import app.rbzeta.postaq.helper.SessionManager;
+import app.rbzeta.postaq.helper.UIHelper;
+import app.rbzeta.postaq.listener.EndlessRecyclerViewScrollListener;
+import app.rbzeta.postaq.model.Answer;
 import app.rbzeta.postaq.model.Question;
+import app.rbzeta.postaq.rest.NetworkService;
+import app.rbzeta.postaq.rest.message.QuestionResponseMessage;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscription;
 
 /**
  * Created by Robyn on 08/11/2016.
  */
 
-public class HomePostFragment extends Fragment {
+public class HomePostFragment extends Fragment implements AnswerPostFragment.PostAnswerListener{
 
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private List<Question> postQuestionList = new ArrayList<>();
     private PostQuestionAdapter adapter;
+    private EndlessRecyclerViewScrollListener scrollListener;
+
+    //private SessionManager session;
+    private Subscription subscription;
+    private NetworkService networkService;
+    private MyDBHandler dbHandler;
 
     private boolean isLoadQuestionFromServerSuccess;
 
-    private MyDBHandler dbHandler;
 
-    public HomePostFragment instance(Bundle bundle){
+
+    public static HomePostFragment newInstance(Bundle bundle){
         HomePostFragment frag = new HomePostFragment();
         frag.setArguments(bundle);
         return frag;
@@ -44,84 +63,54 @@ public class HomePostFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbHandler = MyApplication.getInstance().getDBHandler();
+        //session = MyApplication.getInstance().getSessionManager();
+        networkService = MyApplication.getInstance().getNetworkService();
+        postQuestionList = new ArrayList<>();
+        adapter = new PostQuestionAdapter(getContext(),postQuestionList,this);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        
-        if (isLoadQuestionFromServerSuccess){
-            
-        }else{
-            loadQuestionFromDatabase();
-        }
+
+
+    }
+
+    private void loadPostQuestionsFromServer() {
+        swipeRefreshLayout.setRefreshing(true);
+        fetchListFromServer(0);
     }
 
     private void loadQuestionFromDatabase() {
         postQuestionList.clear();
         List<Question> localQuestions = dbHandler.getQuestionList();
 
-        for(Question question: localQuestions){
-            postQuestionList.add(question);
-        }
+        postQuestionList.addAll(localQuestions);
 
         adapter.notifyDataSetChanged();
+        scrollListener.resetState();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        postQuestionList = new ArrayList<>();
-        adapter = new PostQuestionAdapter(getContext(),postQuestionList);
-        recyclerView.setAdapter(adapter);
+        loadPostQuestionsFromServer();
 
+        if (!isLoadQuestionFromServerSuccess){
+            loadQuestionFromDatabase();
+        }
         //loadDummyData();
-    }
-
-    private void loadDummyData() {
-        Question post = new Question();
-        post.setAvatarUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
-        post.setUserName("Robyn Ezio Eiji Bagus Seta");
-        post.setPostTime("Questioned at 7.15 PM");
-        post.setQuestion("Halaman error pada saat login LAS knp ya?");
-        post.setPostType(2);
-        post.setPictureUrl("");
-        post.setPostAnswer("Coba tutup browser kemudian buka kembali, login LAS kembali");
-        post.setAnswered(0);
-        post.setTotalAnswer("13 Answers");
-
-        Question post2 = new Question();
-        post2.setAvatarUrl("http://202.169.39.114/jakers/media/5816f5e2e8b255.83538496/profile_picture/Postaq_20161031_1502241524108315.jpg");
-        post2.setUserName("Paramitha Ayuningtyas");
-        post2.setPostTime("Questioned at 5.46 PM");
-        post2.setQuestion("Klo mau cleansing TID EDC BRilink alur prosesnya ada yang tau?");
-        post2.setPostType(2);
-        post2.setPictureUrl("");
-        post2.setPostAnswer("Ajukan ke bagian E-Channel dan TSI Kanwil aja mba");
-        post2.setAnswered(1);
-        post2.setTotalAnswer("2 Answers");
-        post2.setAvatarAnswerUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
-        post2.setUserNameAnswer("Robyn Ezio Eiji Bagus Seta");
-
-        Question post3 = new Question();
-        post3.setAvatarUrl("http://202.169.39.114/jakers/media/5809ad207270e2.64152542/profile_picture/IMG_20161021_1317521217148072.jpg");
-        post3.setUserName("Kristall Bawono");
-        post3.setPostTime("Questioned at 9.52 PM");
-        post3.setQuestion("Ada yang tau knp error saat login bristars seperti gambar ini?");
-        post3.setPostType(1);
-        post3.setPictureUrl("http://202.169.39.114/jakers/media/error_sample.png");
-        post3.setPostAnswer("Belum terdaftar di BRIHC, minta sama admin cabang aja");
-        post3.setAnswered(1);
-        post3.setTotalAnswer("6 Answers");
-        post3.setAvatarAnswerUrl("http://202.169.39.114/jakers/media/5813856f7de291.90695269/profile_picture/Postaq_20161029_210933-851002279.jpg");
-        post3.setUserNameAnswer("Robyn Ezio Eiji Bagus Seta");
-
-        postQuestionList.add(post);
-        postQuestionList.add(post2);
-        postQuestionList.add(post3);
-
-
-        adapter.notifyDataSetChanged();
     }
 
     @Nullable
@@ -130,9 +119,28 @@ public class HomePostFragment extends Fragment {
         View view = inflater.inflate(R.layout.content_home,container,false);
 
         recyclerView = (RecyclerView)view.findViewById(R.id.homeRecycleView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(linearLayoutManager);
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public int getFooterViewType(int defaultNoFooterViewType) {
+                return -1;
+            }
+
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                fetchListFromServer(page);
+            }
+        };
+        recyclerView.addOnScrollListener(scrollListener);
         DefaultItemAnimator animator = new DefaultItemAnimator();
         recyclerView.setItemAnimator(animator);
+        recyclerView.setAdapter(adapter);
+
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_home);
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(),R.color.colorPrimary));
+
         return  view;
     }
 
@@ -140,6 +148,93 @@ public class HomePostFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        swipeRefreshLayout.setOnRefreshListener(() -> fetchListFromServer(0));
+    }
+
+    private void fetchListFromServer(int page) {
+        if (page != 0)
+            showProgressBar();
+
+        Observable<QuestionResponseMessage> observable = (Observable<QuestionResponseMessage>)
+                networkService.getPreparedObservable(networkService.getNetworkAPI().getQuestionListFromServer(page),
+                        QuestionResponseMessage.class,
+                        false,false);
+
+        subscription = observable.subscribe(new Observer<QuestionResponseMessage>() {
+            @Override
+            public void onCompleted() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                swipeRefreshLayout.setRefreshing(false);
+                if (page != 0)
+                    dismissProgressBar();
+
+                rxUnSubscribe();
+                UIHelper.showCustomSnackBar(recyclerView,
+                        getString(R.string.dialog_msg_error_fetch_question),
+                        ContextCompat.getColor(getContext(),R.color.white));
+                /*UIHelper.showErrorDialog(getFragmentManager(),getResources(),
+                        getString(R.string.dialog_title_error_fetch_question),
+                        getString(R.string.dialog_msg_error_fetch_question));*/
+
+                isLoadQuestionFromServerSuccess = false;
+            }
+
+            @Override
+            public void onNext(QuestionResponseMessage response) {
+                if (page != 0)
+                    dismissProgressBar();
+
+                if (response.isSuccess()){
+
+                    List<Question> questions = response.getQuestionList();
+
+                    isLoadQuestionFromServerSuccess = true;
+
+                    if (questions != null){
+                        if(page == 0){
+                            postQuestionList.clear();
+                            dbHandler.deleteQuestions();
+                            scrollListener.resetState();
+                        }
+
+                        for (Question question: questions) {
+                            dbHandler.saveQuestion(question);
+                            postQuestionList.add(question);
+                        }
+
+                        if(page == 0)
+                            adapter.notifyDataSetChanged();
+                        else adapter.notifyItemRangeInserted(adapter.getItemCount()+1,questions.size());
+                    }
+
+                    //fillDataAdapter(questions);
+
+
+                }else {
+                    UIHelper.showCustomSnackBar(recyclerView,
+                            response.getMessage(),
+                            ContextCompat.getColor(getContext(),R.color.white));
+                    /*UIHelper.showErrorDialog(getFragmentManager(),getResources(),
+                            response.getTitle(),response.getMessage());*/
+                }
+
+            }
+        });
+
+    }
+
+    private void showProgressBar() {
+        postQuestionList.add(null);
+        adapter.notifyItemInserted(postQuestionList.size() - 1);
+    }
+
+    private void dismissProgressBar() {
+        postQuestionList.remove(postQuestionList.size() - 1);
+        adapter.notifyItemRemoved(postQuestionList.size());
     }
 
     public void onSuccessPostQuestion(Question question){
@@ -148,5 +243,20 @@ public class HomePostFragment extends Fragment {
         //adapter.notifyItemRangeInserted(0,adapter.getItemCount());
         recyclerView.scrollToPosition(0);
 
+    }
+
+    @Override
+    public void onSuccessPostAnswer(Answer answer) {
+        UIHelper.showToastLong(getContext(),"Your answer has been saved.");
+    }
+
+    /*@Override
+    public void onErrorPostAnswer() {
+
+    }*/
+
+    private void rxUnSubscribe() {
+        if(subscription!=null && !subscription.isUnsubscribed())
+            subscription.unsubscribe();
     }
 }

@@ -4,13 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import app.rbzeta.postaq.model.Question;
+import app.rbzeta.postaq.model.Answer;
 
 /**
- * Created by Robyn on 12/1/2016.
+ * Created by Robyn on 12/17/2016.
  */
-
-public class QuestionResponseMessage {
+public class AnswerResponseMessage {
     @SerializedName("code")
     private String code;
 
@@ -23,18 +22,18 @@ public class QuestionResponseMessage {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("question")
-    private Question question;
+    @SerializedName("answer")
+    private Answer answer;
 
-    @SerializedName("questions")
-    private List<Question> questionList;
+    @SerializedName("answers")
+    private List<Answer> answerList;
 
-    public List<Question> getQuestionList() {
-        return questionList;
+    public List<Answer> getAnswerList() {
+        return answerList;
     }
 
-    public void setQuestionList(List<Question> questionList) {
-        this.questionList = questionList;
+    public void setAnswerList(List<Answer> answerList) {
+        this.answerList = answerList;
     }
 
     public String getCode() {
@@ -69,11 +68,11 @@ public class QuestionResponseMessage {
         this.message = message;
     }
 
-    public Question getQuestion() {
-        return question;
+    public Answer getAnswer() {
+        return answer;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }
